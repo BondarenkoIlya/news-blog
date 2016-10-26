@@ -1,5 +1,16 @@
 package com.epam.ilya.model;
 
 public class BaseEntity {
-    int id = 0;
+    private int id;
+
+    public BaseEntity() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
