@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     <servlet>
-        <servlet-name>action</servlet-name>
+        <servlet-name>Controller</servlet-name>
         <servlet-class>
             org.apache.struts.action.ActionServlet
         </servlet-class>
@@ -18,8 +18,7 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>action</servlet-name>
+        <servlet-name>Controller</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-
 </web-app>
