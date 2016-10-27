@@ -1,6 +1,6 @@
 package com.epam.ilya.dao.connection;
 
-public class ConnectionException {
+public class ConnectionException extends Exception {
     public ConnectionException(String message){
         super();
     }
