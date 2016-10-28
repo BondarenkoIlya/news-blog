@@ -12,19 +12,19 @@ import java.util.Properties;
 
 public class ConnectionPoolHolder {
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionPoolHolder.class);
-    private static final String PROPERTY_ADDRESS="database/database.properties";
-    private static final String URL_NAME="url";
-    private static final String USER_NAME="user";
-    private static final String PASSWORD_NAME="password";
-    private static final String DRIVER_NAME="driver";
-    private static final String MAX_POOL_SIZE_NAME="max.pool.size";
-    private static final String AUTO_COMMIT_NAME="max.pool.size";
+    private static final String PROPERTY_ADDRESS = "database/database.properties";
+    private static final String URL_NAME = "url";
+    private static final String USER_NAME = "user";
+    private static final String PASSWORD_NAME = "password";
+    private static final String DRIVER_NAME = "driver";
+    private static final String MAX_POOL_SIZE_NAME = "max.pool.size";
+    private static final String AUTO_COMMIT_NAME = "auto.commit";
 
 
     private static DataSource pool;
 
     public static DataSource getInstance() throws ConnectionPoolException {
-        if (pool==null){
+        if (pool == null) {
             HikariConfig config = new HikariConfig();
             try {
                 Properties properties = PropertyManager.getProperty(PROPERTY_ADDRESS);
@@ -37,7 +37,7 @@ public class ConnectionPoolHolder {
                 pool = new HikariDataSource(config);
                 LOG.info("Initialization of Hikari connection pool");
             } catch (IOException e) {
-                throw new ConnectionPoolException("Cannot get properties for pool",e);
+                throw new ConnectionPoolException("Cannot get properties for pool", e);
             }
         }
         return pool;
