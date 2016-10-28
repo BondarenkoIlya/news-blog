@@ -12,6 +12,7 @@ import java.util.Properties;
 
 public class ConnectionPoolHolder {
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionPoolHolder.class);
+    private static final String PROPERTY_ADDRESS="database/database.properties";
     private static final String URL_NAME="url";
     private static final String USER_NAME="user";
     private static final String PASSWORD_NAME="password";
@@ -26,7 +27,7 @@ public class ConnectionPoolHolder {
         if (pool==null){
             HikariConfig config = new HikariConfig();
             try {
-                Properties properties = PropertyManager.getProperty("database.properties");
+                Properties properties = PropertyManager.getProperty(PROPERTY_ADDRESS);
                 config.setJdbcUrl(properties.getProperty(URL_NAME));
                 config.setUsername(properties.getProperty(USER_NAME));
                 config.setPassword(properties.getProperty(PASSWORD_NAME));
