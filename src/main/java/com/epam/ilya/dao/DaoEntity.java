@@ -1,12 +1,19 @@
 package com.epam.ilya.dao;
 
-import java.sql.Connection;
+import com.epam.ilya.dao.connection.ConnectionPoolException;
+import com.epam.ilya.dao.connection.ConnectionPoolHolder;
+
+import javax.sql.DataSource;
 
 public abstract class DaoEntity {
-    private Connection connection;
+    private DataSource connectionPool;
 
-    public DaoEntity(){
-
+    public DaoEntity() throws DaoException {
+        try {
+            connectionPool = ConnectionPoolHolder.getInstance();
+        } catch (ConnectionPoolException e) {
+            throw new DaoException("Cannot get connection from pool", e);
+        }
     }
 
 }
