@@ -8,22 +8,22 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
     }
 
     @Override
-    public Comment create(Comment comment) {
+    public Comment create(Comment comment) throws DaoException {
         return null;
     }
 
     @Override
-    public Comment findById(int id) {
+    public Comment findById(int id) throws DaoException {
         return null;
     }
 
     @Override
-    public void update(Comment comment) {
+    public void update(Comment comment) throws DaoException {
 
     }
 
     @Override
-    public void delete(Comment comment) {
+    public void delete(Comment comment) throws DaoException {
 
     }
 }
