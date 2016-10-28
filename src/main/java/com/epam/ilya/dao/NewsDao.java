@@ -2,8 +2,10 @@ package com.epam.ilya.dao;
 
 import com.epam.ilya.model.News;
 
-public class NewsDao implements Dao<News> {
+public class NewsDao extends DaoEntity implements Dao<News> {
 
+    public NewsDao() throws DaoException {
+    }
 
     @Override
     public News create(News news) {
