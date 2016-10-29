@@ -8,6 +8,7 @@ public class Comment extends BaseEntity {
     private String content;
 
     public Comment() {
+        this.date = DateTime.now();
     }
 
     public String getAuthor() {
