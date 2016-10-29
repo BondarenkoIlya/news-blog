@@ -14,7 +14,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
 
     private static final String INSERT_NEWS = "INSERT INTO SYSTEM.NEWS VALUES (NULL ,?,?,?,?,1)";
-    private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.NEWS WHERE ID=?";
+    private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.NEWS WHERE ID=? AND ACTIVE=1";
     private static final String UPDATE_NEWS = "UPDATE SYSTEM.NEWS SET TITLE=?, date=?,BRIEF=?,CONTENT=? ,ACTIVE=? WHERE ID=?";
 
 
