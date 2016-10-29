@@ -1,10 +1,14 @@
 package com.epam.ilya.dao;
 
 import com.epam.ilya.model.News;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 
 public class NewsDao extends DaoEntity implements Dao<News> {
+    private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
+
     private static final String INSERT_NEWS = "INSERT INTO SYSTEM.NEWS VALUES (NULL ,?,?,?,?,1)";
 
 
@@ -14,7 +18,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     @Override
     public News create(News news) throws DaoException {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_NEWS, PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_NEWS, new String[]{"ID"})) {
             preparedStatement.setString(1, news.getTitle());
             preparedStatement.setDate(2, new Date(news.getDate().getMillis()));
             preparedStatement.setString(3, news.getBrief());
@@ -22,7 +26,9 @@ public class NewsDao extends DaoEntity implements Dao<News> {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             while (resultSet.next()) {
-                news.setId(resultSet.getInt(1));
+                int id = resultSet.getInt(1);
+                LOG.debug("Generated id is - {}",id);
+                news.setId(id);
             }
             resultSet.close();
         } catch (SQLException e) {
