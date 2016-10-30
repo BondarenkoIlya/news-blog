@@ -11,8 +11,8 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
 
     private static final String INSERT_NEWS = "INSERT INTO SYSTEM.NEWS VALUES (NULL ,?,?,?,?,?)";
-    private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.NEWS WHERE ID=? AND ACTIVE=1";
-    private static final String UPDATE_NEWS = "UPDATE SYSTEM.NEWS SET TITLE=?, date=?,BRIEF=?,CONTENT=? ,ACTIVE=? WHERE ID=?";
+    private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.NEWS WHERE ID=?";
+    private static final String UPDATE_NEWS = "UPDATE SYSTEM.NEWS SET TITLE=?, SYSTEM.NEWS.\"date\"=?,BRIEF=?,CONTENT=? ,ACTIVE=? WHERE ID=?";
     private static final String DELETE_NEWS = "DELETE FROM SYSTEM.NEWS WHERE ID=?";
 
 
@@ -59,9 +59,12 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     public void update(News news) throws DaoException {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NEWS)) {
+            LOG.debug("Start update news - {}",news);
             setNewsInPreparedStatement(news, preparedStatement);
+            LOG.debug("set in statement ");
             preparedStatement.setInt(6, news.getId());
             preparedStatement.execute();
+            LOG.debug(" After execute");
         } catch (SQLException e) {
             throw new DaoException("Cannot update news", e);
         }
@@ -99,6 +102,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
             news.setDate(new DateTime(resultSet.getDate(3)));
             news.setBrief(resultSet.getString(4));
             news.setContent(resultSet.getString(5));
+            news.setStatus(resultSet.getInt(6));
         } catch (SQLException e) {
             throw new DaoException("Cannot pick news from result set", e);
         }

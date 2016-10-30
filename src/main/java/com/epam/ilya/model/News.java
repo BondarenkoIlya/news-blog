@@ -55,4 +55,15 @@ public class News extends BaseEntity {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "id='" + getId() + '\'' +
+                "title='" + title + '\'' +
+                ", date=" + date +
+                ", content='" + content + '\'' +
+                ", brief='" + brief + '\'' +
+                '}';
+    }
 }

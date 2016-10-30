@@ -7,15 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 
-import static oracle.jdbc.internal.OracleStatement.ACTIVE;
-import static oracle.jdbc.internal.OracleStatement.CLOSED;
-
 public class CommentDao extends DaoEntity implements Dao<Comment> {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
 
-    private static final String INSERT_COMMENT = "INSERT INTO SYSTEM.COMMENT VALUES (NULL,?,?,?,?,1)";
-    private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.COMMENT WHERE ID=? AND ACTIVE=1";
-    private static final String UPDATE_COMMENT = "UPDATE SYSTEM.COMMENT SET AUTHOR=?, date=? ,CONTENT=?, NEWS_ID=? ,ACTIVE=?  WHERE ID=?";
+    private static final String INSERT_COMMENT = "INSERT INTO SYSTEM.COMMENT VALUES (NULL,?,?,?,?,?)";
+    private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.COMMENT WHERE ID=?";
+    private static final String UPDATE_COMMENT = "UPDATE SYSTEM.COMMENT SET AUTHOR=?, SYSTEM.NEWS.\"date\"=? ,CONTENT=?, NEWS_ID=? ,ACTIVE=?  WHERE ID=?";
+    private static final String DELETE_COMMENT = "DELETE FROM SYSTEM.COMMENT WHERE ID=?";
 
     public CommentDao() throws DaoException {
     }
@@ -25,7 +23,6 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_COMMENT, new String[]{"ID"})) {
             setCommentInPreparedStatement(comment, preparedStatement);
-            preparedStatement.setInt(4, 1);//TODO Test news_id. Decide what to do with Comment entity field "News"
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             while (resultSet.next()) {
@@ -35,7 +32,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
             }
             resultSet.close();
         } catch (SQLException e) {
-            throw new DaoException("Cannot create statement for creating new news", e);
+            throw new DaoException("Cannot create statement for creating new comment", e);
         }
         return comment;
     }
@@ -59,32 +56,35 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
 
     @Override
     public void update(Comment comment) throws DaoException {
-        updateCommentWithStatus(comment, ACTIVE);//TODO Correct?
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_COMMENT)) {
+            setCommentInPreparedStatement(comment, preparedStatement);
+            preparedStatement.setInt(6, comment.getId());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new DaoException("Cannot update comment", e);
+        }
     }
 
     @Override
     public void delete(Comment comment) throws DaoException {
-        updateCommentWithStatus(comment, CLOSED);
-    }
-
-    private void updateCommentWithStatus(Comment comment, int status) throws DaoException {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_COMMENT)) {
-            setCommentInPreparedStatement(comment, preparedStatement);
-            preparedStatement.setInt(4, 1);//TODO Test news_id
-            preparedStatement.setInt(5, status);
-            preparedStatement.setInt(6, comment.getId());
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_COMMENT)) {
+            preparedStatement.setInt(1, comment.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new DaoException("Cannot update news", e);
+            throw new DaoException("Cannot delete comment", e);
         }
     }
+
 
     private void setCommentInPreparedStatement(Comment comment, PreparedStatement preparedStatement) throws DaoException {
         try {
             preparedStatement.setString(1, comment.getAuthor());
             preparedStatement.setDate(2, new Date(comment.getDate().getMillis()));
             preparedStatement.setString(3, comment.getContent());
+            preparedStatement.setInt(4,comment.getNews().getId());
+            preparedStatement.setInt(5,comment.getStatus());
         } catch (SQLException e) {
             throw new DaoException("Cannot set comment in prepared statement", e);
         }
@@ -97,6 +97,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
             comment.setAuthor(resultSet.getString(2));
             comment.setDate(new DateTime(resultSet.getDate(3)));
             comment.setContent(resultSet.getString(4));
+            comment.setStatus(resultSet.getInt(6));
         } catch (SQLException e) {
             throw new DaoException("Cannot pick comment from result set", e);
         }
