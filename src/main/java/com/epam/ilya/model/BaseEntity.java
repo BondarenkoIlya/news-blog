@@ -1,8 +1,8 @@
 package com.epam.ilya.model;
 
 public class BaseEntity {
-    private static final int ACTIVE=1;
-    private static final int DELETED=0;
+    public static final int ACTIVE = 1;
+    public static final int DELETED = 0;
 
     private int id;
     private int status;

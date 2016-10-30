@@ -59,12 +59,12 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
 
     @Override
     public void update(Comment comment) throws DaoException {
-        updateCommentWithStatus(comment,ACTIVE );//TODO Correct?
+        updateCommentWithStatus(comment, ACTIVE);//TODO Correct?
     }
 
     @Override
     public void delete(Comment comment) throws DaoException {
-        updateCommentWithStatus(comment,CLOSED );
+        updateCommentWithStatus(comment, CLOSED);
     }
 
     private void updateCommentWithStatus(Comment comment, int status) throws DaoException {

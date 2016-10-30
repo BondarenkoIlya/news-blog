@@ -4,7 +4,7 @@ import com.epam.ilya.dao.NewsDao;
 import com.epam.ilya.model.News;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 
 public class NewsDaoTest {
@@ -15,7 +15,7 @@ public class NewsDaoTest {
         news = getTestNews();
         NewsDao newsDao = new NewsDao();
         newsDao.create(news);
-        assertTrue(news.getId()>0);
+        assertTrue(news.getId() > 0);
     }
 
     @Test
@@ -43,10 +43,10 @@ public class NewsDaoTest {
         NewsDao newsDao = new NewsDao();
         newsDao.delete(news);
         News foundNews = newsDao.findById(news.getId());
-        assertTrue(foundNews.getTitle()==null);
+        assertTrue(foundNews.getTitle() == null);
     }
 
-    private News getTestNews(){
+    private News getTestNews() {
         News news = new News();
         news.setTitle("test");
         news.setBrief("test");

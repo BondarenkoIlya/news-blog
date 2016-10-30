@@ -7,15 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 
-import static oracle.jdbc.internal.OracleStatement.ACTIVE;
-import static oracle.jdbc.internal.OracleStatement.CLOSED;
-
 public class NewsDao extends DaoEntity implements Dao<News> {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
 
-    private static final String INSERT_NEWS = "INSERT INTO SYSTEM.NEWS VALUES (NULL ,?,?,?,?,1)";
+    private static final String INSERT_NEWS = "INSERT INTO SYSTEM.NEWS VALUES (NULL ,?,?,?,?,?)";
     private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.NEWS WHERE ID=? AND ACTIVE=1";
     private static final String UPDATE_NEWS = "UPDATE SYSTEM.NEWS SET TITLE=?, date=?,BRIEF=?,CONTENT=? ,ACTIVE=? WHERE ID=?";
+    private static final String DELETE_NEWS = "DELETE FROM SYSTEM.NEWS WHERE ID=?";
 
 
     public NewsDao() throws DaoException {
@@ -59,13 +57,27 @@ public class NewsDao extends DaoEntity implements Dao<News> {
 
     @Override
     public void update(News news) throws DaoException {
-        updateNewsWithStatus(news, ACTIVE);
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NEWS)) {
+            setNewsInPreparedStatement(news, preparedStatement);
+            preparedStatement.setInt(6, news.getId());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new DaoException("Cannot update news", e);
+        }
     }
 
     @Override
     public void delete(News news) throws DaoException {
-        updateNewsWithStatus(news, CLOSED);
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_NEWS)) {
+            preparedStatement.setInt(1, news.getId());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new DaoException("Cannot create statement for deleting news", e);
+        }
     }
+
 
     private void setNewsInPreparedStatement(News news, PreparedStatement preparedStatement) throws DaoException {
         try {
@@ -73,8 +85,9 @@ public class NewsDao extends DaoEntity implements Dao<News> {
             preparedStatement.setDate(2, new Date(news.getDate().getMillis()));
             preparedStatement.setString(3, news.getBrief());
             preparedStatement.setString(4, news.getContent());
+            preparedStatement.setInt(5, news.getStatus());
         } catch (SQLException e) {
-            throw new DaoException("Cannot set news in statement",e);
+            throw new DaoException("Cannot set news in statement", e);
         }
     }
 
@@ -90,17 +103,5 @@ public class NewsDao extends DaoEntity implements Dao<News> {
             throw new DaoException("Cannot pick news from result set", e);
         }
         return news;
-    }
-
-    private void updateNewsWithStatus(News news, int status) throws DaoException {
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NEWS)) {
-            setNewsInPreparedStatement(news, preparedStatement);
-            preparedStatement.setInt(5, status);
-            preparedStatement.setInt(6, news.getId());
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            throw new DaoException("Cannot update news", e);
-        }
     }
 }
