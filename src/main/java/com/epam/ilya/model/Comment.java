@@ -6,9 +6,18 @@ public class Comment extends BaseEntity {
     private String author;
     private DateTime date;
     private String content;
+    private News news;
 
     public Comment() {
         this.date = DateTime.now();
+    }
+
+    public News getNews() {
+        return news;
+    }
+
+    public void setNews(News news) {
+        this.news = news;
     }
 
     public String getAuthor() {
