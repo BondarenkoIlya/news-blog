@@ -1,11 +1,14 @@
 package com.epam.ilya.dao;
 
 import com.epam.ilya.model.Comment;
+import com.epam.ilya.model.News;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommentDao extends DaoEntity implements Dao<Comment> {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
@@ -14,6 +17,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
     private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.COMMENT WHERE ID=?";
     private static final String UPDATE_COMMENT = "UPDATE SYSTEM.COMMENT SET AUTHOR=?, SYSTEM.NEWS.\"date\"=? ,CONTENT=?, NEWS_ID=? ,ACTIVE=?  WHERE ID=?";
     private static final String DELETE_COMMENT = "DELETE FROM SYSTEM.COMMENT WHERE ID=?";
+    private static final String FIND_COMMENT_BY_NEWS = "SELECT * FROM SYSTEM.COMMENT WHERE NEWS_ID =?";
 
     public CommentDao() throws DaoException {
     }
@@ -78,13 +82,29 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
     }
 
 
+    public List<Comment> getNewsComments(News news) throws DaoException {
+        List<Comment> comments = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_COMMENT_BY_NEWS)) {
+            preparedStatement.setInt(1,news.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                comments.add(pickCommentFromResultSet(resultSet));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            throw new DaoException("Cannot create statement for finding comments by news", e);
+        }
+        return comments;
+    }
+
     private void setCommentInPreparedStatement(Comment comment, PreparedStatement preparedStatement) throws DaoException {
         try {
             preparedStatement.setString(1, comment.getAuthor());
             preparedStatement.setDate(2, new Date(comment.getDate().getMillis()));
             preparedStatement.setString(3, comment.getContent());
-            preparedStatement.setInt(4,comment.getNews().getId());
-            preparedStatement.setInt(5,comment.getStatus());
+            preparedStatement.setInt(4, comment.getNews().getId());
+            preparedStatement.setInt(5, comment.getStatus());
         } catch (SQLException e) {
             throw new DaoException("Cannot set comment in prepared statement", e);
         }

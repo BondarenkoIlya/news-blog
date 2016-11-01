@@ -6,6 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.epam.ilya.model.BaseEntity.ACTIVE;
 
 public class NewsDao extends DaoEntity implements Dao<News> {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
@@ -14,6 +18,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.NEWS WHERE ID=?";
     private static final String UPDATE_NEWS = "UPDATE SYSTEM.NEWS SET TITLE=?, SYSTEM.NEWS.\"date\"=?,BRIEF=?,CONTENT=? ,ACTIVE=? WHERE ID=?";
     private static final String DELETE_NEWS = "DELETE FROM SYSTEM.NEWS WHERE ID=?";
+    private static final String FIND_ALL_NEWS = "SELECT * FROM SYSTEM.NEWS WHERE ACTIVE=?";
 
 
     public NewsDao() throws DaoException {
@@ -59,7 +64,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     public void update(News news) throws DaoException {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NEWS)) {
-            LOG.debug("Start update news - {}",news);
+            LOG.debug("Start update news - {}", news);
             setNewsInPreparedStatement(news, preparedStatement);
             LOG.debug("set in statement ");
             preparedStatement.setInt(6, news.getId());
@@ -81,6 +86,22 @@ public class NewsDao extends DaoEntity implements Dao<News> {
         }
     }
 
+
+    public List<News> getActiveNewsList() throws DaoException {
+        List<News> newsList = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_NEWS)) {
+            preparedStatement.setInt(1,ACTIVE);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                newsList.add(pickNewsFromResultSet(resultSet));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            throw new DaoException("Cannot create statement for finding all news", e);
+        }
+        return newsList;
+    }
 
     private void setNewsInPreparedStatement(News news, PreparedStatement preparedStatement) throws DaoException {
         try {
