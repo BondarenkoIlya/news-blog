@@ -8,13 +8,22 @@
     <form-beans>
         <form-bean name="newsListForm"
                    type="com.epam.ilya.form.NewsListForm"/>
+        <form-bean name="newsForm"
+                   type="com.epam.ilya.form.NewsForm"/>
     </form-beans>
 
     <action-mappings>
         <action path="/newsList"
                 type="com.epam.ilya.action.ShowNewsListPageAction"
-                name="newsListForm">
+                name="newsListForm"
+                scope="request">
             <forward name="success" path="/WEB-INF/jsp/news-list.jsp"/>
+        </action>
+        <action path="/newsView"
+                type="com.epam.ilya.action.ShowNewsViewPageAction"
+                name="newsForm"
+                scope="request">
+            <forward name="success" path="/WEB-INF/jsp/news-view.jsp"/>
         </action>
     </action-mappings>
 
