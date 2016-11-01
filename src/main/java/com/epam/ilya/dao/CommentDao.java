@@ -93,6 +93,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
             }
             resultSet.close();
         } catch (SQLException e) {
+            LOG.error("Cannot create statement for finding comments by news",e);
             throw new DaoException("Cannot create statement for finding comments by news", e);
         }
         return comments;
