@@ -13,11 +13,11 @@ import java.util.List;
 public class CommentDao extends DaoEntity implements Dao<Comment> {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
 
-    private static final String INSERT_COMMENT = "INSERT INTO SYSTEM.COMMENT VALUES (NULL,?,?,?,?,?)";
-    private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.COMMENT WHERE ID=?";
-    private static final String UPDATE_COMMENT = "UPDATE SYSTEM.COMMENT SET AUTHOR=?, SYSTEM.NEWS.\"date\"=? ,CONTENT=?, NEWS_ID=? ,ACTIVE=?  WHERE ID=?";
-    private static final String DELETE_COMMENT = "DELETE FROM SYSTEM.COMMENT WHERE ID=?";
-    private static final String FIND_COMMENT_BY_NEWS = "SELECT * FROM SYSTEM.COMMENT WHERE NEWS_ID =?";
+    private static final String INSERT_COMMENT = "INSERT INTO SYSTEM.\"COMMENT\" VALUES (NULL,?,?,?,?,?)";
+    private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.\"COMMENT\" WHERE ID=?";
+    private static final String UPDATE_COMMENT = "UPDATE SYSTEM.\"COMMENT\" SET AUTHOR=?, SYSTEM.NEWS.\"date\"=? ,CONTENT=?, NEWS_ID=? ,ACTIVE=?  WHERE ID=?";
+    private static final String DELETE_COMMENT = "DELETE FROM SYSTEM.\"COMMENT\" WHERE ID=?";
+    private static final String FIND_COMMENT_BY_NEWS = "SELECT * FROM SYSTEM.\"COMMENT\" WHERE NEWS_ID =?";
 
     public CommentDao() throws DaoException {
     }
