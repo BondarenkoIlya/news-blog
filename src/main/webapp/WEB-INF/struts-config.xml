@@ -25,6 +25,26 @@
                 scope="request">
             <forward name="success" path="/WEB-INF/jsp/news-view.jsp"/>
         </action>
+        <action path="/newsEdit"
+                type="com.epam.ilya.action.ShowNewsEditionPageAction"
+                name="newsForm"
+                scope="request">
+            <forward name="success" path="/WEB-INF/jsp/news-edit.jsp"/>
+        </action>
+        <action path="/newsNew"
+                type="org.apache.struts.actions.ForwardAction"
+                name="newsForm"
+                scope="request"
+                parameter="/WEB-INF/jsp/news-edit.jsp"
+                validate="false">
+        </action>
+        <action path="/newsEdition"
+                type="com.epam.ilya.action.EditNewsAction"
+                name="newsForm"
+                parameter="method"
+                scope="request">
+            <forward name="success" path="/newsView.do" redirect="true"/>
+        </action>
     </action-mappings>
 
 </struts-config>
