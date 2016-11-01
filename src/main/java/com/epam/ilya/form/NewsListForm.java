@@ -6,13 +6,13 @@ import org.apache.struts.action.ActionForm;
 import java.util.List;
 
 public class NewsListForm extends ActionForm {
-    private List<News> newses;
+    private List<News> newsList;
 
-    public List<News> getNewses() {
-        return newses;
+    public List<News> getNewsList() {
+        return newsList;
     }
 
-    public void setNewses(List<News> newses) {
-        this.newses = newses;
+    public void setNewsList(List<News> newsList) {
+        this.newsList = newsList;
     }
 }
