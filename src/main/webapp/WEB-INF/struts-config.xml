@@ -4,7 +4,6 @@
         "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 
 <struts-config>
-
     <form-beans>
         <form-bean name="newsListForm"
                    type="com.epam.ilya.form.NewsListForm"/>
