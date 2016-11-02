@@ -19,6 +19,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     private static final String UPDATE_NEWS = "UPDATE SYSTEM.NEWS SET TITLE=?, SYSTEM.NEWS.\"date\"=?,BRIEF=?,CONTENT=? ,ACTIVE=? WHERE ID=?";
     private static final String DELETE_NEWS = "DELETE FROM SYSTEM.NEWS WHERE ID=?";
     private static final String FIND_ALL_NEWS = "SELECT * FROM SYSTEM.NEWS WHERE ACTIVE=?";
+    private static final String DEACTIVATE_NEWS = "UPDATE SYSTEM.NEWS SET ACTIVE=0 WHERE ID=?";
 
 
     public NewsDao() throws DaoException {
@@ -128,5 +129,15 @@ public class NewsDao extends DaoEntity implements Dao<News> {
             throw new DaoException("Cannot pick news from result set", e);
         }
         return news;
+    }
+
+    public void deactivateNews(int id) throws DaoException {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DEACTIVATE_NEWS)) {
+            preparedStatement.setInt(1,id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new DaoException("Cannot deactivate news ",e);
+        }
     }
 }
