@@ -40,4 +40,59 @@ public class NewsService {
         }
         return news;
     }
+
+    public void deactivateNews(String id) throws ServiceException {
+        try {
+            CommentDao commentDao = new CommentDao();
+            NewsDao newsDao = new NewsDao();
+            commentDao.deactivateCommentsByNews(Integer.parseInt(id));
+            newsDao.deactivateNews(Integer.parseInt(id));
+            
+        } catch (DaoException e) {
+            throw new ServiceException("Cannot create dao for deactivating news",e);
+        }
+    }
+
+    public void updateNews(News news) throws ServiceException {
+        try {
+            NewsDao newsDao = new NewsDao();
+            newsDao.update(news);
+        } catch (DaoException e) {
+            throw new ServiceException("Cannot update news",e);
+        }
+    }
+
+    public void createNews(News news) throws ServiceException {
+        try {
+            NewsDao newsDao = new NewsDao();
+            newsDao.create(news);
+        } catch (DaoException e) {
+            throw new ServiceException("Cannot create news",e);
+        }
+    }
+
+    public Comment createCommentForNews(Comment newComment, News news) throws ServiceException {
+        newComment.setNews(news);
+        try {
+            CommentDao commentDao = new CommentDao();
+            newComment = commentDao.create(newComment);
+        } catch (DaoException e) {
+            throw new ServiceException("Cannot create new comment",e);
+        }
+        return newComment;
+    }
+
+    public void deactivateNewsComment(String id, News news) throws ServiceException {
+        for (Comment comment :news.getComments()) {
+            if (comment.getId()==Integer.parseInt(id)){
+                news.getComments().remove(comment);
+            }
+        }
+        try {
+            CommentDao commentDao = new CommentDao();
+            commentDao.deactivateComment(Integer.parseInt(id));
+        } catch (DaoException e) {
+            throw new ServiceException("Cannot deactivate comment",e);
+        }
+    }
 }
