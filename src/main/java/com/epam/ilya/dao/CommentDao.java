@@ -18,6 +18,8 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
     private static final String UPDATE_COMMENT = "UPDATE SYSTEM.\"COMMENT\" SET AUTHOR=?, SYSTEM.NEWS.\"date\"=? ,CONTENT=?, NEWS_ID=? ,ACTIVE=?  WHERE ID=?";
     private static final String DELETE_COMMENT = "DELETE FROM SYSTEM.\"COMMENT\" WHERE ID=?";
     private static final String FIND_COMMENT_BY_NEWS = "SELECT * FROM SYSTEM.\"COMMENT\" WHERE NEWS_ID =?";
+    private static final String DEACTIVATE_COMMENTS = "UPDATE SYSTEM.\"COMMENT\" SET ACTIVE=0 WHERE NEWS_ID=?";
+    private static final String DEACTIVATE_COMMENT = "UPDATE SYSTEM.\"COMMENT\" SET ACTIVE=0 WHERE ID=?";
 
     public CommentDao() throws DaoException {
     }
@@ -97,6 +99,26 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
             throw new DaoException("Cannot create statement for finding comments by news", e);
         }
         return comments;
+    }
+
+    public void deactivateCommentsByNews(int newsId) throws DaoException {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DEACTIVATE_COMMENTS)) {
+            preparedStatement.setInt(1,newsId);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new DaoException("Cannot deactivate news comments",e);
+        }
+    }
+
+    public void deactivateComment(int id) throws DaoException {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DEACTIVATE_COMMENT)) {
+            preparedStatement.setInt(1,id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new DaoException("Cannot deactivate comment",e);
+        }
     }
 
     private void setCommentInPreparedStatement(Comment comment, PreparedStatement preparedStatement) throws DaoException {
