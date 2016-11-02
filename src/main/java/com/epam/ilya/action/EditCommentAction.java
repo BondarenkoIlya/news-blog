@@ -10,14 +10,18 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.actions.DispatchAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class EditCommentAction extends DispatchAction {
+    private static final Logger LOG = LoggerFactory.getLogger(EditCommentAction.class);
+
 
     public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ActionRedirect actionRedirect = (ActionRedirect) mapping.findForward("success");
+        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("success"));
         NewsService service = new NewsService();
         NewsForm newsForm = (NewsForm) form;
         News news = newsForm.getNews();
@@ -33,11 +37,12 @@ public class EditCommentAction extends DispatchAction {
     }
 
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ActionRedirect actionRedirect = (ActionRedirect) mapping.findForward("success");
+        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("success"));
         NewsService service = new NewsService();
         NewsForm newsForm = (NewsForm) form;
         News news = newsForm.getNews();
         String id = request.getParameter("id");
+        LOG.debug("Delete comment with id -{} from news - {}",id,news);
         try {
             service.deactivateNewsComment(id,news);
         }catch (ServiceException e){
