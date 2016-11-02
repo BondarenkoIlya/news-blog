@@ -16,25 +16,25 @@
                 type="com.epam.ilya.action.ShowNewsListPageAction"
                 name="newsListForm"
                 scope="request">
-            <forward name="success" path="/WEB-INF/jsp/news-list.jsp"/>
+            <forward name="success" path="news-list"/>
         </action>
         <action path="/newsView"
                 type="com.epam.ilya.action.ShowNewsViewPageAction"
                 name="newsForm"
                 scope="request">
-            <forward name="success" path="/WEB-INF/jsp/news-view.jsp"/>
+            <forward name="success" path="news-view"/>
         </action>
         <action path="/newsEdition"
                 type="com.epam.ilya.action.ShowNewsEditionPageAction"
                 name="newsForm"
                 scope="request">
-            <forward name="success" path="/WEB-INF/jsp/news-edit.jsp"/>
+            <forward name="success" path="news-edit"/>
         </action>
         <action path="/newsNew"
                 type="org.apache.struts.actions.ForwardAction"
                 name="newsForm"
                 scope="request"
-                parameter="/WEB-INF/jsp/news-edit.jsp"
+                parameter="news-edit"
                 validate="false">
         </action>
         <action path="/newsEdit"
@@ -53,4 +53,10 @@
         </action>
     </action-mappings>
 
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+    <plug-in className="org.apache.struts.tiles.TilesPlugin">
+        <set-property property="definitions-config"
+                      value="/WEB-INF/tiles/tiles-defs.xml"/>
+        <set-property property="moduleAware" value="true"/>
+    </plug-in>
 </struts-config>
