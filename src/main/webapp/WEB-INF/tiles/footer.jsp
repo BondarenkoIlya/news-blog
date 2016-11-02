@@ -2,4 +2,4 @@
 <%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles" %>
 
 
-Footer
+Author - Bondarenko Ilya

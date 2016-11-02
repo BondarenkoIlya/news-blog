@@ -7,6 +7,11 @@
 <logic:iterate  name="newsListForm" property="newsList" id="news">
     <bean:write name="news" property="title"/>
     <br>
-    <html:link action="/newsView.do?id=${news.id}">view</html:link>
+    <bean:write name="news" property="date"/>
+    <br>
+    <bean:write name="news" property="brief"/>
+    <br>
+    <html:link action="/newsView.do?id=${news.id}">Detail</html:link>
+    <br>
     <br>
 </logic:iterate>
