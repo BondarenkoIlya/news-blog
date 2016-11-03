@@ -5,7 +5,7 @@ import com.epam.ilya.model.News;
 import org.apache.struts.action.ActionForm;
 
 public class NewsForm extends ActionForm {
-    private News news;
+    private News news = new News();
     private Comment newComment = new Comment();
 
     public void setNews(News news) {
