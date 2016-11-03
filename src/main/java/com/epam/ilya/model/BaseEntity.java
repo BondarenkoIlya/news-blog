@@ -5,7 +5,7 @@ public class BaseEntity {
     public static final int DELETED = 0;
 
     private int id;
-    private int status;
+    private int status = ACTIVE;
 
     public BaseEntity() {
     }
