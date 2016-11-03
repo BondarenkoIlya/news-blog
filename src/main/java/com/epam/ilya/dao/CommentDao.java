@@ -17,7 +17,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
     private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.\"COMMENT\" WHERE ID=?";
     private static final String UPDATE_COMMENT = "UPDATE SYSTEM.\"COMMENT\" SET AUTHOR=?, SYSTEM.NEWS.\"date\"=? ,CONTENT=?, NEWS_ID=? ,ACTIVE=?  WHERE ID=?";
     private static final String DELETE_COMMENT = "DELETE FROM SYSTEM.\"COMMENT\" WHERE ID=?";
-    private static final String FIND_COMMENT_BY_NEWS = "SELECT * FROM SYSTEM.\"COMMENT\" WHERE NEWS_ID =?";
+    private static final String FIND_COMMENT_BY_NEWS = "SELECT * FROM SYSTEM.\"COMMENT\" WHERE NEWS_ID =? AND ACTIVE=1";
     private static final String DEACTIVATE_COMMENTS = "UPDATE SYSTEM.\"COMMENT\" SET ACTIVE=0 WHERE NEWS_ID=?";
     private static final String DEACTIVATE_COMMENT = "UPDATE SYSTEM.\"COMMENT\" SET ACTIVE=0 WHERE ID=?";
 

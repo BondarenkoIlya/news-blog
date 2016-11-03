@@ -12,12 +12,12 @@ Comments:<br>
 <logic:iterate id="comment" name="newsForm" property="news.comments" >
 ${comment.author} --- ${comment.date}<br>
     ${comment.content}<br>
-    <html:link action="/commentEdit.do?method=delete&id=${comment.id}">Delete</html:link><br>
+    <html:link action="/commentEdit.do?method=delete&id=${comment.id}&news_id=${newsForm.news.id}">Delete</html:link><br>
 </logic:iterate>
 New comment:<br>
-<html:form action="/commentEdit.do?method=create">
-    <html:text property="newComment.author" name="newsForm" value="author"/><br>
-    <html:text property="newComment.content" name="newsForm" value="${news.title}"/><br>
+<html:form action="/commentEdit.do?method=create&news_id=${newsForm.news.id}">
+    <html:text property="newComment.author" name="newsForm" value=""/><br>
+    <html:text property="newComment.content" name="newsForm" value=""/><br>
     <html:submit value="Comment"/>
 </html:form>
 

@@ -2,7 +2,6 @@ package com.epam.ilya.action;
 
 import com.epam.ilya.form.NewsForm;
 import com.epam.ilya.model.Comment;
-import com.epam.ilya.model.News;
 import com.epam.ilya.service.NewsService;
 import com.epam.ilya.service.ServiceException;
 import org.apache.struts.action.ActionForm;
@@ -24,31 +23,30 @@ public class EditCommentAction extends DispatchAction {
         ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("success"));
         NewsService service = new NewsService();
         NewsForm newsForm = (NewsForm) form;
-        News news = newsForm.getNews();
+        String newsId = request.getParameter("news_id");
         Comment newComment = newsForm.getNewComment();
+        LOG.debug("Try to create comment - {}", newComment);
         try {
-            newComment = service.createCommentForNews(newComment, news);
-        }catch (ServiceException e){
-            throw new ActionException("Cannot create comment for news",e);
+            newComment = service.createCommentForNewsWithId(newComment, newsId);
+        } catch (ServiceException e) {
+            throw new ActionException("Cannot create comment for news", e);
         }
-        newsForm.getNews().getComments().add(newComment);
-        actionRedirect.addParameter("id", news.getId());
+        actionRedirect.addParameter("id", newsId);
         return actionRedirect;
     }
 
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("success"));
         NewsService service = new NewsService();
-        NewsForm newsForm = (NewsForm) form;
-        News news = newsForm.getNews();
         String id = request.getParameter("id");
-        LOG.debug("Delete comment with id -{} from news - {}",id,news);
+        String newsId = request.getParameter("news_id");
+        LOG.debug("Delete comment with id -{} from news - {}", id, newsId);
         try {
-            service.deactivateNewsComment(id,news);
-        }catch (ServiceException e){
-            throw new ActionException("Cannot create comment for news",e);
+            service.deactivateComment(id);
+        } catch (ServiceException e) {
+            throw new ActionException("Cannot create comment for news", e);
         }
-        actionRedirect.addParameter("id", news.getId());
+        actionRedirect.addParameter("id", newsId);
         return actionRedirect;
     }
 }

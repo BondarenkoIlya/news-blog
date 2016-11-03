@@ -71,7 +71,9 @@ public class NewsService {
         }
     }
 
-    public Comment createCommentForNews(Comment newComment, News news) throws ServiceException {
+    public Comment createCommentForNewsWithId(Comment newComment, String news_id) throws ServiceException {
+        News news = new News();
+        news.setId(Integer.parseInt(news_id));
         newComment.setNews(news);
         try {
             CommentDao commentDao = new CommentDao();
@@ -82,12 +84,7 @@ public class NewsService {
         return newComment;
     }
 
-    public void deactivateNewsComment(String id, News news) throws ServiceException {
-        for (Comment comment :news.getComments()) {
-            if (comment.getId()==Integer.parseInt(id)){
-                news.getComments().remove(comment);
-            }
-        }
+    public void deactivateComment(String id) throws ServiceException {
         try {
             CommentDao commentDao = new CommentDao();
             commentDao.deactivateComment(Integer.parseInt(id));
