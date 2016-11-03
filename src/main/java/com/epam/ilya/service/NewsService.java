@@ -53,22 +53,18 @@ public class NewsService {
         }
     }
 
-    public void updateNews(News news) throws ServiceException {
+    public News updateOrCreateNews(News news) throws ServiceException {
         try {
             NewsDao newsDao = new NewsDao();
-            newsDao.update(news);
+            if (news.getId()!=0){
+                newsDao.update(news);
+            }else {
+                news = newsDao.create(news);
+            }
         } catch (DaoException e) {
             throw new ServiceException("Cannot update news", e);
         }
-    }
-
-    public void createNews(News news) throws ServiceException {
-        try {
-            NewsDao newsDao = new NewsDao();
-            newsDao.create(news);
-        } catch (DaoException e) {
-            throw new ServiceException("Cannot create news", e);
-        }
+        return news;
     }
 
     public Comment createCommentForNewsWithId(Comment newComment, String news_id) throws ServiceException {

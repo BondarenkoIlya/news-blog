@@ -7,6 +7,7 @@ import com.epam.ilya.service.ServiceException;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.actions.DispatchAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,16 +20,18 @@ public class EditNewsAction extends DispatchAction {
 
 
     public ActionForward update(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("showNews"));
         NewsForm newsForm = (NewsForm) form;
         NewsService service = new NewsService();
         News news = newsForm.getNews();
         LOG.debug("Update news - {}",news);
         try {
-            service.updateNews(news);
+            news = service.updateOrCreateNews(news);
         }catch (ServiceException e){
             throw new ActionException("Cannot update news",e);
         }
-        return mapping.findForward("success");
+        actionRedirect.addParameter("id",news.getId());
+        return actionRedirect;
     }
 
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -41,18 +44,5 @@ public class EditNewsAction extends DispatchAction {
             throw new ActionException("Cannot deactivate news", e);
         }
         return mapping.findForward("showNewsList");
-    }
-
-    public ActionForward add(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        NewsForm newsForm = (NewsForm) form;
-        NewsService service = new NewsService();
-        News news = newsForm.getNews();
-        LOG.debug("Create news - {}",news);
-        try {
-            service.createNews(news);
-        }catch (ServiceException e){
-            throw new ActionException("Cannot create news",e);
-        }
-        return mapping.findForward("success");
     }
 }
