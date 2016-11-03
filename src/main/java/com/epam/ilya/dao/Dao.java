@@ -8,6 +8,6 @@ public interface Dao<T> {
 
     void update(T t) throws DaoException;
 
-    void delete(T t) throws DaoException;
+    void delete(int news) throws DaoException;
 
 }

@@ -42,7 +42,7 @@ public class EditCommentAction extends DispatchAction {
         String newsId = request.getParameter("news_id");
         LOG.debug("Delete comment with id -{} from news - {}", id, newsId);
         try {
-            service.deactivateComment(id);
+            service.deleteComment(id);
         } catch (ServiceException e) {
             throw new ActionException("Cannot create comment for news", e);
         }

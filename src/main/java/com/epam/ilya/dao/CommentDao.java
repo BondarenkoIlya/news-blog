@@ -5,6 +5,7 @@ import com.epam.ilya.model.News;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.dc.pr.PRError;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,13 +14,13 @@ import java.util.List;
 public class CommentDao extends DaoEntity implements Dao<Comment> {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
 
-    private static final String INSERT_COMMENT = "INSERT INTO SYSTEM.\"COMMENT\" VALUES (NULL,?,?,?,?,?)";
+    private static final String INSERT_COMMENT = "INSERT INTO SYSTEM.\"COMMENT\" VALUES (NULL,?,?,?,?)";
     private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.\"COMMENT\" WHERE ID=?";
-    private static final String UPDATE_COMMENT = "UPDATE SYSTEM.\"COMMENT\" SET AUTHOR=?, SYSTEM.NEWS.\"date\"=? ,CONTENT=?, NEWS_ID=? ,ACTIVE=?  WHERE ID=?";
+    private static final String UPDATE_COMMENT = "UPDATE SYSTEM.\"COMMENT\" SET AUTHOR=?, SYSTEM.NEWS.\"date\"=? ,CONTENT=?, NEWS_ID=? WHERE ID=?";
     private static final String DELETE_COMMENT = "DELETE FROM SYSTEM.\"COMMENT\" WHERE ID=?";
-    private static final String FIND_COMMENT_BY_NEWS = "SELECT * FROM SYSTEM.\"COMMENT\" WHERE NEWS_ID =? AND ACTIVE=1";
-    private static final String DEACTIVATE_COMMENTS = "UPDATE SYSTEM.\"COMMENT\" SET ACTIVE=0 WHERE NEWS_ID=?";
-    private static final String DEACTIVATE_COMMENT = "UPDATE SYSTEM.\"COMMENT\" SET ACTIVE=0 WHERE ID=?";
+    private static final String FIND_COMMENT_BY_NEWS = "SELECT * FROM SYSTEM.\"COMMENT\" WHERE NEWS_ID =?";
+    private static final String DELETE_COMMENT_BY_NEWS = "DELETE FROM SYSTEM.\"COMMENT\" WHERE NEWS_ID=?";
+
 
     public CommentDao() throws DaoException {
     }
@@ -65,7 +66,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_COMMENT)) {
             setCommentInPreparedStatement(comment, preparedStatement);
-            preparedStatement.setInt(6, comment.getId());
+            preparedStatement.setInt(5, comment.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new DaoException("Cannot update comment", e);
@@ -73,10 +74,10 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
     }
 
     @Override
-    public void delete(Comment comment) throws DaoException {
+    public void delete(int id) throws DaoException {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_COMMENT)) {
-            preparedStatement.setInt(1, comment.getId());
+            preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new DaoException("Cannot delete comment", e);
@@ -101,23 +102,13 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
         return comments;
     }
 
-    public void deactivateCommentsByNews(int newsId) throws DaoException {
+    public void deleteCommentsByNews(int news_id) throws DaoException {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DEACTIVATE_COMMENTS)) {
-            preparedStatement.setInt(1,newsId);
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_COMMENT_BY_NEWS)) {
+            preparedStatement.setInt(1, news_id);
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new DaoException("Cannot deactivate news comments",e);
-        }
-    }
-
-    public void deactivateComment(int id) throws DaoException {
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DEACTIVATE_COMMENT)) {
-            preparedStatement.setInt(1,id);
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            throw new DaoException("Cannot deactivate comment",e);
+            throw new DaoException("Cannot create statement for deleting by news",e);
         }
     }
 
@@ -127,7 +118,6 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
             preparedStatement.setDate(2, new Date(comment.getDate().getMillis()));
             preparedStatement.setString(3, comment.getContent());
             preparedStatement.setInt(4, comment.getNews().getId());
-            preparedStatement.setInt(5, comment.getStatus());
         } catch (SQLException e) {
             throw new DaoException("Cannot set comment in prepared statement", e);
         }
@@ -140,7 +130,6 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
             comment.setAuthor(resultSet.getString(2));
             comment.setDate(new DateTime(resultSet.getDate(3)));
             comment.setContent(resultSet.getString(4));
-            comment.setStatus(resultSet.getInt(6));
         } catch (SQLException e) {
             throw new DaoException("Cannot pick comment from result set", e);
         }
