@@ -18,12 +18,19 @@ import javax.servlet.http.HttpServletResponse;
 public class EditNewsAction extends DispatchAction {
     private static final Logger LOG = LoggerFactory.getLogger(EditNewsAction.class);
 
+    private static final String ID_REGEX= "\\p{N}+";
+
 
     public ActionForward update(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        LOG.debug("Update or create news");
         ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("showNews"));
         NewsForm newsForm = (NewsForm) form;
+        String id = request.getParameter("id");
         NewsService service = new NewsService();
         News news = newsForm.getNews();
+        if (id.matches(ID_REGEX)){
+            news.setId(Integer.parseInt(id));
+        }
         LOG.debug("Update news - {}",news);
         try {
             news = service.updateOrCreateNews(news);

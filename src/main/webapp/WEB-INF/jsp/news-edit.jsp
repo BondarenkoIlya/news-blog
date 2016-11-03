@@ -4,8 +4,10 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 
-<html:form action="">
-    <html:text property="newComment.author" name="newsForm" value=""/><br>
-    <html:text property="newComment.content" name="newsForm" value=""/><br>
-    <html:submit value="Comment"/>
+<html:form action="/newsEdit.do?method=update&id=${newsForm.news.id}">
+    <html:textarea property="news.title" name="newsForm" value="${newsForm.news.title}"/><br>
+    <html:textarea property="news.brief" name="newsForm" value="${newsForm.news.brief}"/><br>
+    <html:textarea property="news.content" name="newsForm" value="${newsForm.news.content}"/><br>
+    <html:submit value="Edit"/>
 </html:form>
+

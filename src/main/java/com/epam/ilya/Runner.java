@@ -14,20 +14,6 @@ public class Runner {
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
     public static void main(String[] args) {
-        try {
-            CommentDao commentDao = new CommentDao();
-            NewsDao newsDao = new NewsDao();
-            News news = newsDao.findById(49);
-            List<Comment> newsComments = commentDao.getNewsComments(news);
-            if (newsComments.isEmpty()){
-                LOG.debug("Have no comment for this news");
-            }else {
-                for (Comment comment: newsComments) {
-                    LOG.debug("News comment - {}",comment);
-                }
-            }
-        } catch (DaoException e) {
-            LOG.error("Cannot create dao");
-        }
+        System.out.println(Boolean.parseBoolean(""));
     }
 }

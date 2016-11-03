@@ -27,7 +27,7 @@ public class EditCommentAction extends DispatchAction {
         Comment newComment = newsForm.getNewComment();
         LOG.debug("Try to create comment - {}", newComment);
         try {
-            newComment = service.createCommentForNewsWithId(newComment, newsId);
+            service.createCommentForNewsWithId(newComment, newsId);
         } catch (ServiceException e) {
             throw new ActionException("Cannot create comment for news", e);
         }

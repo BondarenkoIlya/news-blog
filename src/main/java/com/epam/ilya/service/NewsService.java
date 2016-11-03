@@ -67,17 +67,16 @@ public class NewsService {
         return news;
     }
 
-    public Comment createCommentForNewsWithId(Comment newComment, String news_id) throws ServiceException {
+    public void createCommentForNewsWithId(Comment newComment, String news_id) throws ServiceException {
         News news = new News();
         news.setId(Integer.parseInt(news_id));
         newComment.setNews(news);
         try {
             CommentDao commentDao = new CommentDao();
-            newComment = commentDao.create(newComment);
+            commentDao.create(newComment);
         } catch (DaoException e) {
             throw new ServiceException("Cannot create new comment", e);
         }
-        return newComment;
     }
 
     public void deleteComment(String id) throws ServiceException {
