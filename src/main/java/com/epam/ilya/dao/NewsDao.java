@@ -9,17 +9,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.epam.ilya.model.BaseEntity.ACTIVE;
-
 public class NewsDao extends DaoEntity implements Dao<News> {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
 
-    private static final String INSERT_NEWS = "INSERT INTO SYSTEM.NEWS VALUES (NULL ,?,?,?,?,?)";
+    private static final String INSERT_NEWS = "INSERT INTO SYSTEM.NEWS VALUES (NULL ,?,?,?,?)";
     private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.NEWS WHERE ID=?";
-    private static final String UPDATE_NEWS = "UPDATE SYSTEM.NEWS SET TITLE=?, SYSTEM.NEWS.\"date\"=?,BRIEF=?,CONTENT=? ,ACTIVE=? WHERE ID=?";
+    private static final String UPDATE_NEWS = "UPDATE SYSTEM.NEWS SET TITLE=?, SYSTEM.NEWS.\"date\"=?,BRIEF=?,CONTENT=? WHERE ID=?";
     private static final String DELETE_NEWS = "DELETE FROM SYSTEM.NEWS WHERE ID=?";
-    private static final String FIND_ALL_NEWS = "SELECT * FROM SYSTEM.NEWS WHERE ACTIVE=?";
-    private static final String DEACTIVATE_NEWS = "UPDATE SYSTEM.NEWS SET ACTIVE=0 WHERE ID=?";
+    private static final String FIND_ALL_NEWS = "SELECT * FROM SYSTEM.NEWS ";
 
 
     public NewsDao() throws DaoException {
@@ -68,7 +65,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
             LOG.debug("Start update news - {}", news);
             setNewsInPreparedStatement(news, preparedStatement);
             LOG.debug("set in statement ");
-            preparedStatement.setInt(6, news.getId());
+            preparedStatement.setInt(5, news.getId());
             preparedStatement.execute();
             LOG.debug(" After execute");
         } catch (SQLException e) {
@@ -77,10 +74,10 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     }
 
     @Override
-    public void delete(News news) throws DaoException {
+    public void delete(int id) throws DaoException {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_NEWS)) {
-            preparedStatement.setInt(1, news.getId());
+            preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new DaoException("Cannot create statement for deleting news", e);
@@ -88,13 +85,12 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     }
 
 
-    public List<News> getActiveNewsList() throws DaoException {
+    public List<News> getNewsList() throws DaoException {
         List<News> newsList = new ArrayList<>();
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_NEWS)) {
-            preparedStatement.setInt(1,ACTIVE);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(FIND_ALL_NEWS)) {
+            while (resultSet.next()) {
                 newsList.add(pickNewsFromResultSet(resultSet));
             }
             resultSet.close();
@@ -110,7 +106,6 @@ public class NewsDao extends DaoEntity implements Dao<News> {
             preparedStatement.setDate(2, new Date(news.getDate().getMillis()));
             preparedStatement.setString(3, news.getBrief());
             preparedStatement.setString(4, news.getContent());
-            preparedStatement.setInt(5, news.getStatus());
         } catch (SQLException e) {
             throw new DaoException("Cannot set news in statement", e);
         }
@@ -124,20 +119,9 @@ public class NewsDao extends DaoEntity implements Dao<News> {
             news.setDate(new DateTime(resultSet.getDate(3)));
             news.setBrief(resultSet.getString(4));
             news.setContent(resultSet.getString(5));
-            news.setStatus(resultSet.getInt(6));
         } catch (SQLException e) {
             throw new DaoException("Cannot pick news from result set", e);
         }
         return news;
-    }
-
-    public void deactivateNews(int id) throws DaoException {
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DEACTIVATE_NEWS)) {
-            preparedStatement.setInt(1,id);
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            throw new DaoException("Cannot deactivate news ",e);
-        }
     }
 }

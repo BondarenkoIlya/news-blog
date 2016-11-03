@@ -1,6 +1,5 @@
 package com.epam.ilya.dao;
 
-import com.epam.ilya.model.BaseEntity;
 import com.epam.ilya.model.News;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -21,6 +20,7 @@ public class NewsDaoIntegrationTest {
         newsDao.create(news);
         assertTrue(news.getId() > 0);
     }
+
     @Ignore
     @Test
     public void findById() throws Exception {
@@ -31,6 +31,7 @@ public class NewsDaoIntegrationTest {
         News foundNews = newsDao.findById(news.getId());
         assertTrue(news.getTitle().equals(foundNews.getTitle()));
     }
+
     @Ignore
     @Test
     public void update() throws Exception {
@@ -42,12 +43,13 @@ public class NewsDaoIntegrationTest {
         News foundNews = newsDao.findById(news.getId());
         assertTrue(news.getTitle().equals(foundNews.getTitle()));
     }
+
     @Ignore
     @Test
     public void delete() throws Exception {
         News news = getTestNews();
         NewsDao newsDao = new NewsDao();
-        newsDao.delete(news);
+        newsDao.delete(news.getId());
         News foundNews = newsDao.findById(news.getId());
         assertTrue(foundNews.getTitle() == null);
     }
@@ -57,7 +59,6 @@ public class NewsDaoIntegrationTest {
         news.setTitle("test");
         news.setBrief("test");
         news.setContent("test");
-        news.setStatus(BaseEntity.ACTIVE);
         return news;
     }
 

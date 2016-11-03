@@ -11,7 +11,6 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShowNewsListPageAction extends Action {
@@ -22,7 +21,7 @@ public class ShowNewsListPageAction extends Action {
         NewsService service = new NewsService();
         List<News> newsList;
         try {
-            newsList = service.getActiveNewsList();
+            newsList = service.getNewsList();
         } catch (ServiceException e) {
             throw new ActionException("Service cannot get news list",e);
         }

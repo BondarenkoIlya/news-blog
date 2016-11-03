@@ -36,11 +36,11 @@ public class EditNewsAction extends DispatchAction {
         String id = request.getParameter("id");
         LOG.debug("Delete news with id - {}",id);
         try {
-            service.deactivateNews(id);
+            service.deleteNews(id);
         } catch (ServiceException e) {
             throw new ActionException("Cannot deactivate news", e);
         }
-        return mapping.findForward("success");
+        return mapping.findForward("showNewsList");
     }
 
     public ActionForward add(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {

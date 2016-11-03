@@ -23,8 +23,7 @@ The Observatory also said that Grad surface-to-surface rockets had struck Nairab
 
 Aleppo, Syria''s most populous city before the war, has for years been split between a government-held western sector and the rebel-held east, which the army and its allies managed to put under siege this summer.
 
-(Additional reporting by Tom Perry, Writing by Angus McDowall, Editing by Angus MacSwan)',
-                         1);
+(Additional reporting by Tom Perry, Writing by Angus McDowall, Editing by Angus MacSwan)');
 INSERT INTO NEWS VALUES (NULL,
                          'Clinton holds lead, but pollsters say their job is harder',
                          to_date('2016-10-29', 'yyyy-mm-dd'),
@@ -69,8 +68,7 @@ Polling cellphones can costs 30 to 50 percent more than polling land lines due t
 
 Calls to cellphones are also more easily screened by their users, and as a result pollsters say they connect with just 10 percent of people they try to contact, down from 80 percent a few decades ago.
 
-But Courtney Kennedy, director of survey research at Pew said, "In terms of data, the quality is better." Many respondents on cellphones are young and racially diverse, she said.',
-                         1);
+But Courtney Kennedy, director of survey research at Pew said, "In terms of data, the quality is better." Many respondents on cellphones are young and racially diverse, she said.');
 
 INSERT INTO NEWS VALUES (NULL,
                          'Internet providers now need permission to share or sell your web browsing data',
@@ -102,8 +100,7 @@ Here are the basics of the new rules:
 
 ISPs need to get consent, somehow, from subscribers before using or selling their sensitive data — browsing history, app usage, location information, financial data — to third parties, like online advertisers.
 ISPs do not need permission from subscribers to share non-sensitive information, which includes IP addresses, email addresses, service tiers or bandwidth usage. But internet providers must create a way for subscribers to opt out of sharing that information if they so chose.
-The new rules don’t require internet companies to gain consent to advertise other communications services they provide. So if Verizon wanted to market its home broadband service to a current mobile user, that would be fine. If Verizon wanted to share browsing data with other parts of the company that do not provide communications services, like Yahoo, it would have to get consent. And there’s no requirement to provide a way to opt out of internal marketing.',
-                         1);
+The new rules don’t require internet companies to gain consent to advertise other communications services they provide. So if Verizon wanted to market its home broadband service to a current mobile user, that would be fine. If Verizon wanted to share browsing data with other parts of the company that do not provide communications services, like Yahoo, it would have to get consent. And there’s no requirement to provide a way to opt out of internal marketing.');
 
 INSERT INTO NEWS VALUES (NULL,
                          'For Wade, Chicago homecoming a ''special'' moment',
@@ -127,8 +124,7 @@ Wade''s performance underscored why the Bulls'' front office was so happy to lan
 
 Butler, who the Bulls hope can mature under Wade''s tutelage, sang his new teammate''s praises as well.
 
-"That''s one less player I got to guard in this league, to tell you the truth, so I''m excited about that," Butler said of Wade. "But the way the game slows down for him, he knows where guys are going to be. It''s hard to do, but that''s what happens whenever you play 13, going on 14, years in this league. He''s so much smarter than a lot of guys, using his body and his athleticism to his advantage, so I''m taking note."',
-                         1);
+"That''s one less player I got to guard in this league, to tell you the truth, so I''m excited about that," Butler said of Wade. "But the way the game slows down for him, he knows where guys are going to be. It''s hard to do, but that''s what happens whenever you play 13, going on 14, years in this league. He''s so much smarter than a lot of guys, using his body and his athleticism to his advantage, so I''m taking note."');
 
 INSERT INTO NEWS VALUES (NULL,
                          'First-ever dinosaur brain tissue found',
@@ -156,5 +152,4 @@ The researchers also cautioned against drawing conclusions about the intelligenc
 
 “It is reasonable to suppose that iguanodontian dinosaurs of this type were moderately complex behaviorally (no less so than modern crocodilians, for example),” the researchers wrote.
 
-Their findings were published Oct. 27 in a Special Publication of the Geological Society of London, in tribute to Martin Brasier of the University of Oxford, who died in 2014. Brasier and Norman coordinated the research into this particular fossil during the years before Brasier’s death in a traffic accident.',
-                         1);
+Their findings were published Oct. 27 in a Special Publication of the Geological Society of London, in tribute to Martin Brasier of the University of Oxford, who died in 2014. Brasier and Norman coordinated the research into this particular fossil during the years before Brasier’s death in a traffic accident.');

@@ -52,7 +52,6 @@ public class Comment extends BaseEntity {
                 ", date=" + date +
                 ", content='" + content + '\'' +
                 ", news=" + news +
-                ", status="+ getStatus()+'\''+
                 '}';
     }
 }

@@ -64,7 +64,6 @@ public class News extends BaseEntity {
                 ", date=" + date +
                 ", content='" + content + '\'' +
                 ", brief='" + brief + '\'' +
-                ", status="+ getStatus()+'\''+
                 '}';
     }
 }
