@@ -6,7 +6,6 @@
     <definition name="common-template" template="/WEB-INF/tiles/common-layout.jsp">
         <put name="header" value="/WEB-INF/tiles/header.jsp"/>
         <put name="leftbar" value="/WEB-INF/tiles/leftbar.jsp"/>
-        <put name="body" value="/WEB-INF/jsp/news-list.jsp" />
         <put name="footer" value="/WEB-INF/tiles/footer.jsp"/>
     </definition>
 

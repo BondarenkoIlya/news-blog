@@ -11,7 +11,7 @@
     <br>
     <bean:write name="news" property="brief"/>
     <br>
-    <html:link action="/newsView.do?id=${news.id}">Detail</html:link>
+    <html:link action="/newsEdition.do?method=view&id=${news.id}">Detail</html:link>
     <br>
     <br>
 </logic:iterate>

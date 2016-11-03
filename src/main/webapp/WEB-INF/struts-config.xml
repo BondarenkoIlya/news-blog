@@ -18,17 +18,13 @@
                 scope="request">
             <forward name="success" path="news-list"/>
         </action>
-        <action path="/newsView"
-                type="com.epam.ilya.action.ShowNewsViewPageAction"
-                name="newsForm"
-                scope="request">
-            <forward name="success" path="news-view"/>
-        </action>
         <action path="/newsEdition"
-                type="com.epam.ilya.action.ShowNewsEditionPageAction"
+                type="com.epam.ilya.action.ShowNewsPageAction"
                 name="newsForm"
+                parameter="method"
                 scope="request">
-            <forward name="success" path="news-edit"/>
+            <forward name="view" path="news-view"/>
+            <forward name="edition" path="news-edit"/>
         </action>
         <action path="/newsNew"
                 type="org.apache.struts.actions.ForwardAction"
@@ -42,14 +38,15 @@
                 name="newsForm"
                 parameter="method"
                 scope="request">
-            <forward name="success" path="/newsList.do" redirect="true"/>
+            <forward name="showNewsList" path="/newsList.do" redirect="true"/>
+            <forward name="showNews" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
         <action path="/commentEdit"
                 type="com.epam.ilya.action.EditCommentAction"
                 name="newsForm"
                 parameter="method"
                 scope="request">
-            <forward name="success" path="/newsView.do" redirect="true"/>
+            <forward name="success" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
     </action-mappings>
 

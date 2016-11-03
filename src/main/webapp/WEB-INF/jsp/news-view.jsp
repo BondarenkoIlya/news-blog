@@ -8,6 +8,7 @@
 <bean:write name="newsForm" property="news.date" /><br>
 <bean:write name="newsForm" property="news.brief" /><br>
 <bean:write name="newsForm" property="news.content" /><br>
+<html:link action="/newsEdition.do?method=edition&id=${newsForm.news.id}">Edit</html:link><br>
 Comments:<br>
 <logic:iterate id="comment" name="newsForm" property="news.comments" >
 ${comment.author} --- ${comment.date}<br>
