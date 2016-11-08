@@ -15,36 +15,55 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Class encapsulates all methods of manipulation with {@link News}
+ *
+ * @author Ilya_Bondarenko
+ */
+
 public class EditNewsAction extends DispatchAction {
-    private static final Logger LOG = LoggerFactory.getLogger(EditNewsAction.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EditNewsAction.class);
 
-    private static final String ID_REGEX= "\\p{N}+";
+    /**
+     * Method creates new or updates already exists {@link News}
+     *
+     * @param mapping  of struts
+     * @param form     contains new {@link News}
+     * @param request  contains id of {@link News}
+     * @param response going on view
+     * @return ActionForward object that contain mapping on forward page
+     */
 
-
-    public ActionForward update(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        LOG.debug("Update or create news");
-        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("showNews"));
+    public ActionForward update(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
+        LOGGER.debug("Update or create news");
         NewsForm newsForm = (NewsForm) form;
         String id = request.getParameter("id");
         NewsService service = new NewsService();
         News news = newsForm.getNews();
-        if (id.matches(ID_REGEX)){
-            news.setId(Integer.parseInt(id));
-        }
-        LOG.debug("Update news - {}",news);
         try {
-            news = service.updateOrCreateNews(news);
+            news = service.updateOrCreateNewsById(news,id);
         }catch (ServiceException e){
             throw new ActionException("Cannot update news",e);
         }
+        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("showNews"));
         actionRedirect.addParameter("id",news.getId());
         return actionRedirect;
     }
 
-    public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    /**
+     * Method deletes selected {@link News}
+     *
+     * @param mapping  of struts
+     * @param form     came from view
+     * @param request  contains id of selected {@link News}
+     * @param response going on view
+     * @return ActionForward object that contain mapping on forward page
+     */
+
+    public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         NewsService service = new NewsService();
         String id = request.getParameter("id");
-        LOG.debug("Delete news with id - {}",id);
+        LOGGER.debug("Delete news with id - {}",id);
         try {
             service.deleteNews(id);
         } catch (ServiceException e) {

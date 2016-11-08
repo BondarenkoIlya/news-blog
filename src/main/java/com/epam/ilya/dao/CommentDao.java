@@ -11,6 +11,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class encapsulates all methods of manipulation with {@link Comment} in database
+ *
+ * @author Ilya_Bondarenko
+ */
+
 public class CommentDao extends DaoEntity implements Dao<Comment> {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
 
@@ -25,6 +31,10 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
     public CommentDao() throws DaoException {
     }
 
+
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public Comment create(Comment comment) throws DaoException {
         try (Connection connection = getConnection();
@@ -44,6 +54,10 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
         return comment;
     }
 
+    /**
+     *{@inheritDoc}
+     */
+
     @Override
     public Comment findById(int id) throws DaoException {
         Comment comment = new Comment();
@@ -61,6 +75,10 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
         return comment;
     }
 
+    /**
+     *{@inheritDoc}
+     */
+
     @Override
     public void update(Comment comment) throws DaoException {
         try (Connection connection = getConnection();
@@ -73,6 +91,10 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
         }
     }
 
+    /**
+     *{@inheritDoc}
+     */
+
     @Override
     public void delete(int id) throws DaoException {
         try (Connection connection = getConnection();
@@ -84,6 +106,13 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
         }
     }
 
+    /**
+     * Method takes all comment records connecting with selected news
+     *
+     * @param news contains list of comments
+     * @return List of comments
+     * @throws DaoException
+     */
 
     public List<Comment> getNewsComments(News news) throws DaoException {
         List<Comment> comments = new ArrayList<>();
@@ -102,10 +131,17 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
         return comments;
     }
 
-    public void deleteCommentsByNews(int news_id) throws DaoException {
+    /**
+     * Method deletes all comments records connected with selected news
+     *
+     * @param newsId of news
+     * @throws DaoException
+     */
+
+    public void deleteCommentsByNews(int newsId) throws DaoException {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_COMMENT_BY_NEWS)) {
-            preparedStatement.setInt(1, news_id);
+            preparedStatement.setInt(1, newsId);
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new DaoException("Cannot create statement for deleting by news",e);

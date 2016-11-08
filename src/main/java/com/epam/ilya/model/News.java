@@ -5,6 +5,12 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class describe information about current event or affair
+ *
+ * @author Ilya_Bondarenko
+ */
+
 public class News extends BaseEntity {
     private String title;
     private DateTime date;

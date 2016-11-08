@@ -10,8 +10,22 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+/**
+ * Class encapsulates all methods of manipulation with {@link Comment} and {@link News}
+ *
+ * @author Ilya_Bondarenko
+ */
+
 public class NewsService {
     private static final Logger LOG = LoggerFactory.getLogger(NewsService.class);
+    private static final String ID_REGEX= "\\p{N}+";
+
+    /**
+     * Method gets list of all news
+     *
+     * @return list of news
+     * @throws ServiceException
+     */
 
     public List<News> getNewsList() throws ServiceException {
         List<News> newsList;
@@ -25,6 +39,14 @@ public class NewsService {
         return newsList;
     }
 
+
+    /**
+     * Method gets selected by id news
+     *
+     * @param id of needs news
+     * @return news
+     * @throws ServiceException
+     */
 
     public News getNewsById(String id) throws ServiceException {
         News news = new News();
@@ -41,6 +63,13 @@ public class NewsService {
         return news;
     }
 
+    /**
+     * Method deletes selected by id news and all connected comments
+     *
+     * @param id of deleting news
+     * @throws ServiceException
+     */
+
     public void deleteNews(String id) throws ServiceException {
         try {
             CommentDao commentDao = new CommentDao();
@@ -53,10 +82,20 @@ public class NewsService {
         }
     }
 
-    public News updateOrCreateNews(News news) throws ServiceException {
+    /**
+     * Method updates news if there was id or creates news one if there wasn't
+     *
+     * @param news editing news
+     * @param id of selected news
+     * @return news
+     * @throws ServiceException
+     */
+
+    public News updateOrCreateNewsById(News news, String id) throws ServiceException {
         try {
             NewsDao newsDao = new NewsDao();
-            if (news.getId()!=0){
+            if (id.matches(ID_REGEX)){
+                news.setId(Integer.parseInt(id));
                 newsDao.update(news);
             }else {
                 news = newsDao.create(news);
@@ -67,9 +106,17 @@ public class NewsService {
         return news;
     }
 
-    public void createCommentForNewsWithId(Comment newComment, String news_id) throws ServiceException {
+    /**
+     * Method creates new {@link Comment} for selected by id {@link News}
+     *
+     * @param newComment needs to be created
+     * @param newsId of connected with comment news
+     * @throws ServiceException
+     */
+
+    public void createCommentForNewsWithId(Comment newComment, String newsId) throws ServiceException {
         News news = new News();
-        news.setId(Integer.parseInt(news_id));
+        news.setId(Integer.parseInt(newsId));
         newComment.setNews(news);
         try {
             CommentDao commentDao = new CommentDao();
@@ -78,6 +125,13 @@ public class NewsService {
             throw new ServiceException("Cannot create new comment", e);
         }
     }
+
+    /**
+     * Method deletes selected {@link Comment}
+     *
+     * @param id of comment that needs to be deleted
+     * @throws ServiceException
+     */
 
     public void deleteComment(String id) throws ServiceException {
         try {

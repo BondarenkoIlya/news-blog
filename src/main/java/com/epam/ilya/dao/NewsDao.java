@@ -9,6 +9,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class encapsulates all methods of manipulation with {@link News} in database
+ *
+ * @author Ilya_Bondarenko
+ */
+
 public class NewsDao extends DaoEntity implements Dao<News> {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
 
@@ -21,6 +27,10 @@ public class NewsDao extends DaoEntity implements Dao<News> {
 
     public NewsDao() throws DaoException {
     }
+
+    /**
+     *{@inheritDoc}
+     */
 
     @Override
     public News create(News news) throws DaoException {
@@ -41,6 +51,10 @@ public class NewsDao extends DaoEntity implements Dao<News> {
         return news;
     }
 
+    /**
+     *{@inheritDoc}
+     */
+
     @Override
     public News findById(int id) throws DaoException {
         News news = new News();
@@ -58,6 +72,10 @@ public class NewsDao extends DaoEntity implements Dao<News> {
         return news;
     }
 
+    /**
+     *{@inheritDoc}
+     */
+
     @Override
     public void update(News news) throws DaoException {
         try (Connection connection = getConnection();
@@ -73,6 +91,10 @@ public class NewsDao extends DaoEntity implements Dao<News> {
         }
     }
 
+    /**
+     *{@inheritDoc}
+     */
+
     @Override
     public void delete(int id) throws DaoException {
         try (Connection connection = getConnection();
@@ -84,6 +106,12 @@ public class NewsDao extends DaoEntity implements Dao<News> {
         }
     }
 
+    /**
+     * Method takes all news records from base
+     *
+     * @return List of news
+     * @throws DaoException
+     */
 
     public List<News> getNewsList() throws DaoException {
         List<News> newsList = new ArrayList<>();

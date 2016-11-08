@@ -12,15 +12,41 @@ import org.apache.struts.actions.DispatchAction;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Class encapsulates functional for showing pages that contain {@link News}
+ *
+ * @author Ilya_Bondarenko
+ */
+
 public class ShowNewsPageAction extends DispatchAction {
     private static final String ID = "id";
 
-    public ActionForward view(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    /**
+     * Method takes selected {@link News} and sends it to page for displaying
+     *
+     * @param mapping  of struts
+     * @param form     going to page for displaying
+     * @param request  going on view
+     * @param response going on view
+     * @return ActionForward object that contain mapping on forward page
+     */
+
+    public ActionForward view(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         takeNews((NewsForm) form, request);
         return mapping.findForward("view");
     }
 
-    public ActionForward edition(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    /**
+     * Method takes selected {@link News} and sends it to page for edition
+     *
+     * @param mapping  of struts
+     * @param form     going to page for displaying and edition
+     * @param request  going on view
+     * @param response going on view
+     * @return ActionForward object that contain mapping on forward page
+     */
+
+    public ActionForward edition(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         takeNews((NewsForm) form, request);
         return mapping.findForward("edition");
     }

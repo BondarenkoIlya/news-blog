@@ -2,6 +2,12 @@ package com.epam.ilya.model;
 
 import org.joda.time.DateTime;
 
+/**
+ * Class describes explanation or guest's thoughts about {@link News}
+ *
+ * @author Ilya_Bondarenko
+ */
+
 public class Comment extends BaseEntity {
     private String author;
     private DateTime date;

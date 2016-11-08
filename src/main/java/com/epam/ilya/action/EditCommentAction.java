@@ -15,37 +15,62 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Class encapsulates all methods of manipulation with {@link Comment}
+ *
+ * @author Ilya_Bondarenko
+ */
+
 public class EditCommentAction extends DispatchAction {
-    private static final Logger LOG = LoggerFactory.getLogger(EditCommentAction.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EditCommentAction.class);
 
+    /**
+     * Method creates new {@link Comment}
+     *
+     * @param mapping  of struts
+     * @param form     contains new {@link Comment}
+     * @param request  going on view
+     * @param response going on view
+     * @return ActionForward object that contain mapping on forward page
+     */
 
-    public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("success"));
+    public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         NewsService service = new NewsService();
         NewsForm newsForm = (NewsForm) form;
         String newsId = request.getParameter("news_id");
         Comment newComment = newsForm.getNewComment();
-        LOG.debug("Try to create comment - {}", newComment);
+        LOGGER.debug("Try to create comment - {}", newComment);
         try {
             service.createCommentForNewsWithId(newComment, newsId);
         } catch (ServiceException e) {
             throw new ActionException("Cannot create comment for news", e);
         }
+        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("success"));
         actionRedirect.addParameter("id", newsId);
         return actionRedirect;
     }
 
-    public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("success"));
+    /**
+     * Method deletes selected {@link Comment}
+     *
+     * @param mapping  of struts
+     * @param form     came from view
+     * @param request  contains Comments and News id
+     * @param response going on view
+     * @return ActionForward object that contain mapping on forward page
+     */
+
+    public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         NewsService service = new NewsService();
         String id = request.getParameter("id");
         String newsId = request.getParameter("news_id");
-        LOG.debug("Delete comment with id -{} from news - {}", id, newsId);
+        LOGGER.debug("Delete comment with id -{} from news - {}", id, newsId);
         try {
             service.deleteComment(id);
         } catch (ServiceException e) {
             throw new ActionException("Cannot create comment for news", e);
         }
+        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("success"));
         actionRedirect.addParameter("id", newsId);
         return actionRedirect;
     }

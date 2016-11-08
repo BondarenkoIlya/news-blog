@@ -7,8 +7,20 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Class contains main method needs for all dao
+ *
+ * @author Ilya_Bondarenko
+ */
+
 public abstract class DaoEntity {
     private DataSource connectionPool;
+
+    /**
+     * Constructor take instance of connection pool
+     *
+     * @throws DaoException
+     */
 
     public DaoEntity() throws DaoException {
         try {
@@ -18,9 +30,12 @@ public abstract class DaoEntity {
         }
     }
 
-    public DataSource getConnectionPool() {
-        return connectionPool;
-    }
+    /**
+     * Method get connection for work with database from pool
+     *
+     * @return connection for work with database
+     * @throws SQLException
+     */
 
     public Connection getConnection() throws SQLException {
         Connection connection = connectionPool.getConnection();

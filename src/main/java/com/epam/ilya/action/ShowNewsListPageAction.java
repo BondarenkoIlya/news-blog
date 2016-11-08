@@ -13,10 +13,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Class encapsulates functional for showing news list page
+ *
+ * @author Ilya_Bondarenko
+ */
+
 public class ShowNewsListPageAction extends Action {
 
+    /**
+     * Method collects all {@link News} and sends it to view
+     *
+     * @param mapping  of struts
+     * @param form     came from view
+     * @param request  going on view
+     * @param response going on view
+     * @return ActionForward object that contain mapping on forward page
+     */
+
     @Override
-    public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         NewsListForm newsListForm = (NewsListForm) form;
         NewsService service = new NewsService();
         List<News> newsList;
