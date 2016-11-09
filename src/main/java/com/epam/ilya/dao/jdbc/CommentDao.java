@@ -1,5 +1,8 @@
-package com.epam.ilya.dao;
+package com.epam.ilya.dao.jdbc;
 
+import com.epam.ilya.dao.Dao;
+import com.epam.ilya.dao.DaoException;
+import com.epam.ilya.dao.DaoEntity;
 import com.epam.ilya.model.Comment;
 import com.epam.ilya.model.News;
 import org.joda.time.DateTime;
@@ -36,8 +39,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
      */
     @Override
     public Comment create(Comment comment) throws DaoException {
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_COMMENT, new String[]{"ID"})) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(INSERT_COMMENT, new String[]{"ID"})) {
             setCommentInPreparedStatement(comment, preparedStatement);
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -60,8 +62,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
     @Override
     public Comment findById(int id) throws DaoException {
         Comment comment = new Comment();
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(FIND_BY_ID)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -80,8 +81,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
 
     @Override
     public void update(Comment comment) throws DaoException {
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_COMMENT)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(UPDATE_COMMENT)) {
             setCommentInPreparedStatement(comment, preparedStatement);
             preparedStatement.setInt(5, comment.getId());
             preparedStatement.execute();
@@ -96,8 +96,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
 
     @Override
     public void delete(int id) throws DaoException {
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_COMMENT)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_COMMENT)) {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -115,8 +114,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
 
     public List<Comment> getNewsComments(News news) throws DaoException {
         List<Comment> comments = new ArrayList<>();
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_COMMENT_BY_NEWS)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(FIND_COMMENT_BY_NEWS)) {
             preparedStatement.setInt(1, news.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -138,8 +136,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
      */
 
     public void deleteCommentsByNews(int newsId) throws DaoException {
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_COMMENT_BY_NEWS)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_COMMENT_BY_NEWS)) {
             preparedStatement.setInt(1, newsId);
             preparedStatement.execute();
         } catch (SQLException e) {

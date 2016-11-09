@@ -1,4 +1,4 @@
-package com.epam.ilya.dao.connection;
+package com.epam.ilya.dao.jdbc.connection;
 
 /**
  * Class covers all exceptions connected with connection pool

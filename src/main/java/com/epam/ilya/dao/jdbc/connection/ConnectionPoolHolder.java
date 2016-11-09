@@ -1,4 +1,4 @@
-package com.epam.ilya.dao.connection;
+package com.epam.ilya.dao.jdbc.connection;
 
 import com.epam.ilya.manager.PropertyManager;
 import com.zaxxer.hikari.HikariConfig;
