@@ -23,6 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class EditCommentAction extends DispatchAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(EditCommentAction.class);
+    private static final String ID = "id";
+    private static final String NEWS_ID = "news_id";
+    private static final String SUCCESS = "success";
 
     /**
      * Method creates new {@link Comment}
@@ -37,7 +40,7 @@ public class EditCommentAction extends DispatchAction {
     public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         NewsService service = new NewsService();
         NewsForm newsForm = (NewsForm) form;
-        String newsId = request.getParameter("news_id");
+        String newsId = request.getParameter(NEWS_ID);
         Comment newComment = newsForm.getNewComment();
         LOGGER.debug("Try to create comment - {}", newComment);
         try {
@@ -45,8 +48,8 @@ public class EditCommentAction extends DispatchAction {
         } catch (ServiceException e) {
             throw new ActionException("Cannot create comment for news", e);
         }
-        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("success"));
-        actionRedirect.addParameter("id", newsId);
+        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward(SUCCESS));
+        actionRedirect.addParameter(ID, newsId);
         return actionRedirect;
     }
 
@@ -62,16 +65,16 @@ public class EditCommentAction extends DispatchAction {
 
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         NewsService service = new NewsService();
-        String id = request.getParameter("id");
-        String newsId = request.getParameter("news_id");
+        String id = request.getParameter(ID);
+        String newsId = request.getParameter(NEWS_ID);
         LOGGER.debug("Delete comment with id -{} from news - {}", id, newsId);
         try {
             service.deleteComment(id);
         } catch (ServiceException e) {
             throw new ActionException("Cannot create comment for news", e);
         }
-        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("success"));
-        actionRedirect.addParameter("id", newsId);
+        ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward(SUCCESS));
+        actionRedirect.addParameter(ID, newsId);
         return actionRedirect;
     }
 }

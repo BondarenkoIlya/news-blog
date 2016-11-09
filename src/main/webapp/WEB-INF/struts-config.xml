@@ -59,7 +59,7 @@
 
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
 
-    <message-resources parameter="i18n" />
+    <message-resources parameter="i18n"/>
 
     <plug-in className="org.apache.struts.tiles.TilesPlugin">
         <set-property property="definitions-config"

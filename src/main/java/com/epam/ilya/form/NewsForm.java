@@ -25,4 +25,8 @@ public class NewsForm extends ActionForm {
     public Comment getNewComment() {
         return newComment;
     }
+
+    public void setNewComment(Comment newComment) {
+        this.newComment = newComment;
+    }
 }

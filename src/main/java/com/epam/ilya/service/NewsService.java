@@ -17,8 +17,8 @@ import java.util.List;
  */
 
 public class NewsService {
-    private static final Logger LOG = LoggerFactory.getLogger(NewsService.class);
-    private static final String ID_REGEX= "\\p{N}+";
+    private static final Logger LOGGER = LoggerFactory.getLogger(NewsService.class);
+    private static final String ID_REGEX = "\\p{N}+";
 
     /**
      * Method gets list of all news
@@ -33,7 +33,7 @@ public class NewsService {
             NewsDao newsDao = new NewsDao();
             newsList = newsDao.getNewsList();
         } catch (DaoException e) {
-            LOG.error("Cannot create news dao for giving news list", e);
+            LOGGER.error("Cannot create news dao for giving news list", e);
             throw new ServiceException("Cannot create news dao for giving news list", e);
         }
         return newsList;
@@ -57,7 +57,7 @@ public class NewsService {
             List<Comment> comments = commentDao.getNewsComments(news);
             news.setComments(comments);
         } catch (DaoException e) {
-            LOG.error("Cannot create news dao for finding news by id", e);
+            LOGGER.error("Cannot create news dao for finding news by id", e);
             throw new ServiceException("Cannot create news dao for finding news by id", e);
         }
         return news;
@@ -86,18 +86,20 @@ public class NewsService {
      * Method updates news if there was id or creates news one if there wasn't
      *
      * @param news editing news
-     * @param id of selected news
+     * @param id   of selected news
      * @return news
      * @throws ServiceException
      */
 
     public News updateOrCreateNewsById(News news, String id) throws ServiceException {
+        if (id.matches(ID_REGEX)){
+            news.setId(Integer.parseInt(id));
+        }
         try {
             NewsDao newsDao = new NewsDao();
-            if (id.matches(ID_REGEX)){
-                news.setId(Integer.parseInt(id));
+            if (news.getId()!=0) {
                 newsDao.update(news);
-            }else {
+            } else {
                 news = newsDao.create(news);
             }
         } catch (DaoException e) {
@@ -110,7 +112,7 @@ public class NewsService {
      * Method creates new {@link Comment} for selected by id {@link News}
      *
      * @param newComment needs to be created
-     * @param newsId of connected with comment news
+     * @param newsId     of connected with comment news
      * @throws ServiceException
      */
 

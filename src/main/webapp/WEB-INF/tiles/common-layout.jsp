@@ -10,7 +10,7 @@
 <table border="1" cellpadding="2" cellspacing="2" align="center">
     <tr>
         <td height="20%" colspan="2">
-            <tiles:insert attribute="header" />
+            <tiles:insert attribute="header"/>
         </td>
     </tr>
     <tr>
@@ -18,12 +18,12 @@
             <tiles:insert attribute="leftbar"/>
         </td>
         <td>
-            <tiles:insert attribute="body" />
+            <tiles:insert attribute="body"/>
         </td>
     </tr>
     <tr>
         <td height="20%" colspan="2">
-            <tiles:insert attribute="footer" />
+            <tiles:insert attribute="footer"/>
         </td>
     </tr>
 </table>

@@ -17,4 +17,8 @@ public class NewsListForm extends ActionForm {
     public void setNewsList(List<News> newsList) {
         this.newsList = newsList;
     }
+
+    public List<News> getNewsList() {
+        return newsList;
+    }
 }

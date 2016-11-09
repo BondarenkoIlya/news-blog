@@ -10,15 +10,15 @@
     </definition>
 
     <definition name="news-edit" extends="common-template">
-        <put name="body" value="/WEB-INF/jsp/news-edit.jsp" />
+        <put name="body" value="/WEB-INF/jsp/news-edit.jsp"/>
     </definition>
 
     <definition name="news-list" extends="common-template">
-        <put name="body" value="/WEB-INF/jsp/news-list.jsp" />
+        <put name="body" value="/WEB-INF/jsp/news-list.jsp"/>
     </definition>
 
     <definition name="news-view" extends="common-template">
-        <put name="body" value="/WEB-INF/jsp/news-view.jsp" />
+        <put name="body" value="/WEB-INF/jsp/news-view.jsp"/>
     </definition>
 
 </tiles-definitions>

@@ -29,7 +29,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
 
     @Override
@@ -52,7 +52,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
 
     @Override
@@ -73,7 +73,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
 
     @Override
@@ -92,7 +92,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
 
     @Override

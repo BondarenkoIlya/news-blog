@@ -20,6 +20,7 @@ import java.util.List;
  */
 
 public class ShowNewsListPageAction extends Action {
+    private static final String SUCCESS = "success";
 
     /**
      * Method collects all {@link News} and sends it to view
@@ -39,9 +40,9 @@ public class ShowNewsListPageAction extends Action {
         try {
             newsList = service.getNewsList();
         } catch (ServiceException e) {
-            throw new ActionException("Service cannot get news list",e);
+            throw new ActionException("Service cannot get news list", e);
         }
         newsListForm.setNewsList(newsList);
-        return mapping.findForward("success");
+        return mapping.findForward(SUCCESS);
     }
 }

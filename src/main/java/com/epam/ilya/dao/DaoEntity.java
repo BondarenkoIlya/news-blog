@@ -38,7 +38,6 @@ public abstract class DaoEntity {
      */
 
     public Connection getConnection() throws SQLException {
-        Connection connection = connectionPool.getConnection();
-        return connection;
+        return connectionPool.getConnection();
     }
 }

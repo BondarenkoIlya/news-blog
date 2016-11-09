@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class EditNewsAction extends DispatchAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(EditNewsAction.class);
-
+    private static final String ID = "id";
     /**
      * Method creates new or updates already exists {@link News}
      *
@@ -37,16 +37,16 @@ public class EditNewsAction extends DispatchAction {
     public ActionForward update(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         LOGGER.debug("Update or create news");
         NewsForm newsForm = (NewsForm) form;
-        String id = request.getParameter("id");
+        String id = request.getParameter(ID);
         NewsService service = new NewsService();
         News news = newsForm.getNews();
         try {
-            news = service.updateOrCreateNewsById(news,id);
-        }catch (ServiceException e){
-            throw new ActionException("Cannot update news",e);
+            news = service.updateOrCreateNewsById(news, id);
+        } catch (ServiceException e) {
+            throw new ActionException("Cannot update news", e);
         }
         ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("showNews"));
-        actionRedirect.addParameter("id",news.getId());
+        actionRedirect.addParameter(ID, news.getId());
         return actionRedirect;
     }
 
@@ -62,8 +62,8 @@ public class EditNewsAction extends DispatchAction {
 
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         NewsService service = new NewsService();
-        String id = request.getParameter("id");
-        LOGGER.debug("Delete news with id - {}",id);
+        String id = request.getParameter(ID);
+        LOGGER.debug("Delete news with id - {}", id);
         try {
             service.deleteNews(id);
         } catch (ServiceException e) {

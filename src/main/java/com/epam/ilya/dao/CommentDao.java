@@ -5,7 +5,6 @@ import com.epam.ilya.model.News;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.dc.pr.PRError;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.List;
  */
 
 public class CommentDao extends DaoEntity implements Dao<Comment> {
-    private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NewsDao.class);
 
     private static final String INSERT_COMMENT = "INSERT INTO SYSTEM.\"COMMENT\" VALUES (NULL,?,?,?,?)";
     private static final String FIND_BY_ID = "SELECT * FROM SYSTEM.\"COMMENT\" WHERE ID=?";
@@ -33,7 +32,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
 
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public Comment create(Comment comment) throws DaoException {
@@ -44,7 +43,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             while (resultSet.next()) {
                 int id = resultSet.getInt(1);
-                LOG.debug("Generated id is - {}", id);
+                LOGGER.debug("Generated id is - {}", id);
                 comment.setId(id);
             }
             resultSet.close();
@@ -55,7 +54,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
 
     @Override
@@ -76,7 +75,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
 
     @Override
@@ -92,7 +91,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
     }
 
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
 
     @Override
@@ -118,14 +117,14 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
         List<Comment> comments = new ArrayList<>();
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_COMMENT_BY_NEWS)) {
-            preparedStatement.setInt(1,news.getId());
+            preparedStatement.setInt(1, news.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 comments.add(pickCommentFromResultSet(resultSet));
             }
             resultSet.close();
         } catch (SQLException e) {
-            LOG.error("Cannot create statement for finding comments by news",e);
+            LOGGER.error("Cannot create statement for finding comments by news", e);
             throw new DaoException("Cannot create statement for finding comments by news", e);
         }
         return comments;
@@ -144,7 +143,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
             preparedStatement.setInt(1, newsId);
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new DaoException("Cannot create statement for deleting by news",e);
+            throw new DaoException("Cannot create statement for deleting by news", e);
         }
     }
 

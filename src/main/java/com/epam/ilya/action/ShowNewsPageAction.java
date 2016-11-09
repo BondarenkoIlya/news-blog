@@ -58,7 +58,7 @@ public class ShowNewsPageAction extends DispatchAction {
         try {
             news = service.getNewsById(id);
         } catch (ServiceException e) {
-            throw new ActionException("Cannot get news by id",e);
+            throw new ActionException("Cannot get news by id", e);
         }
         NewsForm newsForm = form;
         newsForm.setNews(news);

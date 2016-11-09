@@ -22,7 +22,7 @@ public class EncodingFilter implements Filter {
      *
      * @param request  request that come from view
      * @param response response that go to view
-     * @param chain     parameter for work with next filters
+     * @param chain    parameter for work with next filters
      * @throws IOException
      * @throws ServletException
      */
