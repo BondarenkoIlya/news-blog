@@ -5,6 +5,7 @@ import com.epam.ilya.dao.DaoEntity;
 import com.epam.ilya.dao.DaoException;
 
 public class HibernateDaoFactory extends AbstractDaoFactory {
+
     @Override
     public <T extends DaoEntity> T getDao(Class<T> clazz) throws DaoException {
         return null;
