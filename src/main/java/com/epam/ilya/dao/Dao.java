@@ -1,12 +1,14 @@
 package com.epam.ilya.dao;
 
+import com.epam.ilya.model.BaseEntity;
+
 /**
  * Class describes all working with database entities behaviour
  *
  * @param <T>
  */
 
-public interface Dao<T> {
+public interface Dao<T extends BaseEntity> {
 
     /**
      * Method creates record in database by <T> object

@@ -2,7 +2,10 @@ package com.epam.ilya.model;
 
 import org.joda.time.DateTime;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,16 +13,27 @@ import java.util.List;
  *
  * @author Ilya_Bondarenko
  */
+@Entity
+@Table(name = "NEWS")
+public class News extends BaseEntity implements Serializable {
 
-public class News extends BaseEntity {
+    @Column(name = "TITLE")
     private String title;
-    private DateTime date;
+
+    @Column(name = "\"date\"")
+    private Date date;
+
+    @Column(name = "BRIEF")
     private String brief;
+
+    @Column(name = "CONTENT")
     private String content;
+
+    @OneToMany(mappedBy = "news")
     private List<Comment> comments = new ArrayList<>();
 
     public News() {
-        this.date = DateTime.now();
+        this.date = new Date();
     }
 
     public String getTitle() {
@@ -30,11 +44,11 @@ public class News extends BaseEntity {
         this.title = title;
     }
 
-    public DateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

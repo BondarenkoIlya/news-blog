@@ -1,10 +1,8 @@
 package com.epam.ilya.dao.jdbc;
 
 import com.epam.ilya.dao.Dao;
-import com.epam.ilya.dao.DaoEntity;
 import com.epam.ilya.dao.DaoException;
 import com.epam.ilya.model.News;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -129,7 +127,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     private void setNewsInPreparedStatement(News news, PreparedStatement preparedStatement) throws DaoException {
         try {
             preparedStatement.setString(1, news.getTitle());
-            preparedStatement.setDate(2, new Date(news.getDate().getMillis()));
+            preparedStatement.setDate(2, new Date(news.getDate().getTime()));
             preparedStatement.setString(3, news.getBrief());
             preparedStatement.setString(4, news.getContent());
         } catch (SQLException e) {
@@ -142,7 +140,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
         try {
             news.setId(resultSet.getInt(1));
             news.setTitle(resultSet.getString(2));
-            news.setDate(new DateTime(resultSet.getDate(3)));
+            news.setDate(new Date(resultSet.getDate(3).getTime()));
             news.setBrief(resultSet.getString(4));
             news.setContent(resultSet.getString(5));
         } catch (SQLException e) {

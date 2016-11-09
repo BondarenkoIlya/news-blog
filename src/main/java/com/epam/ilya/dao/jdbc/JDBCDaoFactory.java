@@ -1,10 +1,11 @@
 package com.epam.ilya.dao.jdbc;
 
 import com.epam.ilya.dao.AbstractDaoFactory;
-import com.epam.ilya.dao.DaoEntity;
+import com.epam.ilya.dao.Dao;
 import com.epam.ilya.dao.DaoException;
 import com.epam.ilya.dao.jdbc.connection.ConnectionPoolException;
 import com.epam.ilya.dao.jdbc.connection.ConnectionPoolHolder;
+import com.epam.ilya.model.BaseEntity;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -24,15 +25,20 @@ public class JDBCDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public <T extends DaoEntity> T getDao(Class<T> clazz) throws DaoException {
-        T t;
+    public <T extends BaseEntity> Dao<T> getDao(Class<T> clazz) throws DaoException {
+        DaoEntity<T> daoEntity;
         try {
-            t = clazz.newInstance();
-            t.setConnection(connection);
+            String simpleName = clazz.getSimpleName();
+            Package aPackage = this.getClass().getPackage();
+            String daoName = aPackage+"."+ simpleName + "Dao";
+            daoEntity = (DaoEntity<T>) Class.forName(daoName).newInstance();
+            daoEntity.setConnection(connection);
         } catch (InstantiationException | IllegalAccessException e) {
             throw new DaoException("Cannot create new instance", e);
+        } catch (ClassNotFoundException e) {
+            throw new DaoException("Cannot create class for name", e);
         }
-        return t;
+        return daoEntity;
     }
 
     @Override
@@ -40,7 +46,7 @@ public class JDBCDaoFactory extends AbstractDaoFactory {
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
-            throw new DaoException("Cannot set auto commit- false",e);
+            throw new DaoException("Cannot set auto commit- false", e);
         }
     }
 
@@ -49,7 +55,7 @@ public class JDBCDaoFactory extends AbstractDaoFactory {
         try {
             connection.setAutoCommit(true);
         } catch (SQLException e) {
-            throw new DaoException("Cannot set auto commit true",e);
+            throw new DaoException("Cannot set auto commit true", e);
         }
     }
 
@@ -59,7 +65,7 @@ public class JDBCDaoFactory extends AbstractDaoFactory {
             connection.rollback();
             connection.setAutoCommit(true);
         } catch (SQLException e) {
-            throw new DaoException("Cannot rollback transaction",e);
+            throw new DaoException("Cannot rollback transaction", e);
         }
     }
 

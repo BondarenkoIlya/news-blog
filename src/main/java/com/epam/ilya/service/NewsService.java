@@ -1,6 +1,7 @@
 package com.epam.ilya.service;
 
 import com.epam.ilya.dao.AbstractDaoFactory;
+import com.epam.ilya.dao.Dao;
 import com.epam.ilya.dao.DaoException;
 import com.epam.ilya.dao.DaoType;
 import com.epam.ilya.dao.jdbc.CommentDao;
@@ -34,7 +35,7 @@ public class NewsService {
     public List<News> getNewsList() throws ServiceException {
         List<News> newsList;
         try (AbstractDaoFactory daoFactory = AbstractDaoFactory.getDaoFactory(daoType)) {
-            NewsDao newsDao = daoFactory.getDao(NewsDao.class);
+            Dao<News> newsDao = daoFactory.getDao(News.class);
             newsList = newsDao.getNewsList();
         } catch (DaoException e) {
             LOGGER.error("Cannot create news dao for giving news list", e);

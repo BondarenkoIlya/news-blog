@@ -2,10 +2,8 @@ package com.epam.ilya.dao.jdbc;
 
 import com.epam.ilya.dao.Dao;
 import com.epam.ilya.dao.DaoException;
-import com.epam.ilya.dao.DaoEntity;
 import com.epam.ilya.model.Comment;
 import com.epam.ilya.model.News;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -147,7 +145,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
     private void setCommentInPreparedStatement(Comment comment, PreparedStatement preparedStatement) throws DaoException {
         try {
             preparedStatement.setString(1, comment.getAuthor());
-            preparedStatement.setDate(2, new Date(comment.getDate().getMillis()));
+            preparedStatement.setDate(2, new Date(comment.getDate().getTime()));
             preparedStatement.setString(3, comment.getContent());
             preparedStatement.setInt(4, comment.getNews().getId());
         } catch (SQLException e) {
@@ -160,7 +158,7 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
         try {
             comment.setId(resultSet.getInt(1));
             comment.setAuthor(resultSet.getString(2));
-            comment.setDate(new DateTime(resultSet.getDate(3)));
+            comment.setDate(new Date(resultSet.getDate(3).getTime()));
             comment.setContent(resultSet.getString(4));
         } catch (SQLException e) {
             throw new DaoException("Cannot pick comment from result set", e);

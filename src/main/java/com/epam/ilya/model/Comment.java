@@ -2,20 +2,39 @@ package com.epam.ilya.model;
 
 import org.joda.time.DateTime;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * Class describes explanation or guest's thoughts about {@link News}
  *
  * @author Ilya_Bondarenko
  */
 
-public class Comment extends BaseEntity {
+
+@Entity
+@Table(name = "\"COMMENT\"")
+public class Comment extends BaseEntity implements Serializable {
+
+    @Column(name = "AUTHOR")
     private String author;
-    private DateTime date;
+
+    @Column(name = "\"date\"")
+    private Date date;
+
+    @Column(name = "CONTENT")
     private String content;
+
+    @Column(name = "NEWS_ID" )
+    private int newsId;
+
+    @ManyToOne
+    @JoinColumn(name = "NEWS_ID" ,insertable = false,updatable = false , nullable = false)
     private News news;
 
     public Comment() {
-        this.date = DateTime.now();
+        this.date = new Date();
     }
 
     public News getNews() {
@@ -34,11 +53,11 @@ public class Comment extends BaseEntity {
         this.author = author;
     }
 
-    public DateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -48,6 +67,14 @@ public class Comment extends BaseEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getNewsId() {
+        return newsId;
+    }
+
+    public void setNewsId(int newsId) {
+        this.newsId = newsId;
     }
 
     @Override

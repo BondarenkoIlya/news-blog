@@ -1,7 +1,9 @@
 package com.epam.ilya.dao;
 
 import com.epam.ilya.dao.hibernate.HibernateDaoFactory;
+import com.epam.ilya.dao.jdbc.DaoEntity;
 import com.epam.ilya.dao.jdbc.JDBCDaoFactory;
+import com.epam.ilya.model.BaseEntity;
 
 public abstract class AbstractDaoFactory implements AutoCloseable {
 
@@ -15,7 +17,7 @@ public abstract class AbstractDaoFactory implements AutoCloseable {
         }
     }
 
-    public abstract <T extends DaoEntity> T getDao(Class<T> clazz) throws DaoException;
+    public abstract <T extends BaseEntity> Dao<T> getDao(Class<T> clazz) throws DaoException;
 
     public abstract void startTransaction() throws DaoException;
 

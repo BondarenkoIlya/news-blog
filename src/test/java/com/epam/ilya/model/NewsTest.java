@@ -5,6 +5,8 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+
+
 public class NewsTest {
 
     private static final String BREAKING_NEWS_TRUMP_WINS = "Breaking news: Trump wins";
