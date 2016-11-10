@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 public class EditNewsAction extends DispatchAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(EditNewsAction.class);
     private static final String ID = "id";
+
     /**
      * Method creates new or updates already exists {@link News}
      *
@@ -40,8 +41,9 @@ public class EditNewsAction extends DispatchAction {
         String id = request.getParameter(ID);
         NewsService service = new NewsService();
         News news = newsForm.getNews();
+        String date = newsForm.getEditDate();
         try {
-            news = service.updateOrCreateNewsById(news, id);
+            news = service.updateOrCreateNewsById(news, id, date);
         } catch (ServiceException e) {
             throw new ActionException("Cannot update news", e);
         }
