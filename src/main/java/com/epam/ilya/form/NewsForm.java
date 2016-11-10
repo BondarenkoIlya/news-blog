@@ -13,6 +13,7 @@ import org.apache.struts.action.ActionForm;
 public class NewsForm extends ActionForm {
     private News news = new News();
     private Comment newComment = new Comment();
+    private String editDate;
 
     public void setNews(News news) {
         this.news = news;
@@ -28,5 +29,13 @@ public class NewsForm extends ActionForm {
 
     public void setNewComment(Comment newComment) {
         this.newComment = newComment;
+    }
+
+    public String getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(String editDate) {
+        this.editDate = editDate;
     }
 }

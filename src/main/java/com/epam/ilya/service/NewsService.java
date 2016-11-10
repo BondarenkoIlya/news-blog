@@ -7,6 +7,9 @@ import com.epam.ilya.dao.jdbc.CommentDao;
 import com.epam.ilya.dao.jdbc.NewsDao;
 import com.epam.ilya.model.Comment;
 import com.epam.ilya.model.News;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,13 +107,24 @@ public class NewsService {
      *
      * @param news editing news
      * @param id   of selected news
+     * @param date
      * @return news
      * @throws ServiceException
      */
 
-    public News updateOrCreateNewsById(News news, String id) throws ServiceException {
+    public News updateOrCreateNewsById(News news, String id, String date) throws ServiceException {
         if (id.matches(ID_REGEX)) {
             news.setId(Integer.parseInt(id));
+        }
+        if (!"".equals(date)){
+            DateTime dateTime;
+            try {
+                DateTimeFormatter pattern = DateTimeFormat.forPattern("dd/MM/yyyy");
+                dateTime = pattern.parseDateTime(date);
+                news.setDate(dateTime);
+            } catch (IllegalArgumentException e) {
+                LOGGER.error("Input date value is incorrect",e);
+            }
         }
         try (AbstractDaoFactory daoFactory = AbstractDaoFactory.getDaoFactory(daoType)) {
             NewsDao newsDao = daoFactory.getDao(NewsDao.class);
