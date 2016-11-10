@@ -1,5 +1,7 @@
-package com.epam.ilya.dao;
+package com.epam.ilya.dao.jdbc;
 
+import com.epam.ilya.dao.Dao;
+import com.epam.ilya.dao.DaoException;
 import com.epam.ilya.model.News;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -34,8 +36,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
 
     @Override
     public News create(News news) throws DaoException {
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_NEWS, new String[]{"ID"})) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(INSERT_NEWS, new String[]{"ID"})) {
             setNewsInPreparedStatement(news, preparedStatement);
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -58,8 +59,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
     @Override
     public News findById(int id) throws DaoException {
         News news = new News();
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(FIND_BY_ID)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -78,8 +78,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
 
     @Override
     public void update(News news) throws DaoException {
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NEWS)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(UPDATE_NEWS)) {
             LOG.debug("Start update news - {}", news);
             setNewsInPreparedStatement(news, preparedStatement);
             LOG.debug("set in statement ");
@@ -97,8 +96,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
 
     @Override
     public void delete(int id) throws DaoException {
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_NEWS)) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_NEWS)) {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -115,8 +113,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
 
     public List<News> getNewsList() throws DaoException {
         List<News> newsList = new ArrayList<>();
-        try (Connection connection = getConnection();
-             Statement statement = connection.createStatement();
+        try (Statement statement = getConnection().createStatement();
              ResultSet resultSet = statement.executeQuery(FIND_ALL_NEWS)) {
             while (resultSet.next()) {
                 newsList.add(pickNewsFromResultSet(resultSet));

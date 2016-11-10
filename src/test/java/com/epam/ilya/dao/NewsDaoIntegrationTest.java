@@ -1,5 +1,6 @@
 package com.epam.ilya.dao;
 
+import com.epam.ilya.dao.jdbc.NewsDao;
 import com.epam.ilya.model.News;
 import org.junit.Ignore;
 import org.junit.Test;

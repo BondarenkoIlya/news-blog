@@ -56,7 +56,6 @@ public class JDBCDaoFactory extends AbstractDaoFactory {
     public void rollbackTransaction() throws DaoException {
         try {
             connection.rollback();
-            connection.setAutoCommit(true);
         } catch (SQLException e) {
             throw new DaoException("Cannot rollback transaction",e);
         }
