@@ -7,9 +7,7 @@ import com.epam.ilya.dao.jdbc.JDBCDaoFactory;
 public abstract class AbstractDaoFactory implements AutoCloseable {
 
     public static AbstractDaoFactory getDaoFactory(DaoType type) throws DaoException {
-        if (type == DaoType.JDBC) {
-            return new JDBCDaoFactory();
-        } else if (type == DaoType.HIBERNATE) {
+        if (type == DaoType.HIBERNATE) {
             return new HibernateDaoFactory();
         } else {
             return new JDBCDaoFactory();
@@ -25,5 +23,5 @@ public abstract class AbstractDaoFactory implements AutoCloseable {
     public abstract void rollbackTransaction() throws DaoException;
 
     @Override
-    public abstract void close() throws DaoException ;
+    public abstract void close() throws DaoException;
 }

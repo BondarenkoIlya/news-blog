@@ -10,6 +10,8 @@
     <bean:message key="news.title"/><br/>
     <html:textarea property="news.title" name="newsForm" value="${newsForm.news.title}"/><br>
     <bean:message key="news.brief"/><br/>
+    <html:textarea property="news.title" name="newsForm" value="${newsForm.news.title}"/><br>
+    <bean:message key="news.brief"/><br/>
     <html:textarea property="news.brief" name="newsForm" value="${newsForm.news.brief}"/><br>
     <bean:message key="news.content"/><br/>
     <html:textarea property="news.content" name="newsForm" value="${newsForm.news.content}"/><br>
