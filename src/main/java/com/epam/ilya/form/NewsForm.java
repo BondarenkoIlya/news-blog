@@ -3,6 +3,7 @@ package com.epam.ilya.form;
 import com.epam.ilya.model.Comment;
 import com.epam.ilya.model.News;
 import org.apache.struts.action.ActionForm;
+import org.apache.struts.validator.ValidatorForm;
 
 /**
  * Data transfer object's class for containing news information
@@ -10,7 +11,7 @@ import org.apache.struts.action.ActionForm;
  * @author Ilya_Bondarenko
  */
 
-public class NewsForm extends ActionForm {
+public class NewsForm extends ValidatorForm {
     private News news = new News();
     private Comment newComment = new Comment();
     private String editDate;
@@ -38,4 +39,6 @@ public class NewsForm extends ActionForm {
     public void setEditDate(String editDate) {
         this.editDate = editDate;
     }
+
+
 }

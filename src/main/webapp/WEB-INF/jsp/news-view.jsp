@@ -14,7 +14,7 @@
     <bean:write name="newsForm" property="news.content"/><br>
     <html:link action="/newsEdition.do?method=edition&id=${newsForm.news.id}"><bean:message key="news.edition"/>
     </html:link><br>
-    <html:link action="/newsEdit.do?method=delete&id=${newsForm.news.id}"><bean:message key="news.delete"/> </html:link><br>
+    <html:link action="/newsDelete.do?id=${newsForm.news.id}"><bean:message key="news.delete"/> </html:link><br>
 </div>
 <div>
     <bean:message key="comments"/>:<br>

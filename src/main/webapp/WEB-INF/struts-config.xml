@@ -22,6 +22,7 @@
                 type="com.epam.ilya.action.ShowNewsPageAction"
                 name="newsForm"
                 parameter="method"
+                validate="false"
                 scope="request">
             <forward name="view" path="news-view"/>
             <forward name="edition" path="news-edit"/>
@@ -33,13 +34,19 @@
                 parameter="news-edit"
                 validate="false">
         </action>
-        <action path="/newsEdit"
+        <action path="/newsUpdate"
                 type="com.epam.ilya.action.EditNewsAction"
                 name="newsForm"
-                parameter="method"
+                parameter="update"
+                validate="true"
+                input="news-edit"
                 scope="request">
-            <forward name="showNewsList" path="/newsList.do" redirect="true"/>
             <forward name="showNews" path="/newsEdition.do?method=view" redirect="true"/>
+        </action>
+        <action path="/newsDelete"
+                type="com.epam.ilya.action.EditNewsAction"
+                parameter="delete">
+            <forward name="showNewsList" path="/newsList.do" redirect="true"/>
         </action>
         <action path="/commentEdit"
                 type="com.epam.ilya.action.EditCommentAction"
@@ -65,6 +72,11 @@
         <set-property property="definitions-config"
                       value="/WEB-INF/tiles/tiles-defs.xml"/>
         <set-property property="moduleAware" value="true"/>
+    </plug-in>
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn" >
+        <set-property property="pathnames"
+                      value="/WEB-INF/validation/validator-rules.xml, /WEB-INF/validation/validator-news.xml"/>
+
     </plug-in>
 
 </struts-config>
