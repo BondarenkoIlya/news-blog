@@ -5,7 +5,6 @@ import com.epam.ilya.model.News;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
-import org.apache.struts.validator.ValidatorActionForm;
 import org.apache.struts.validator.ValidatorForm;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -51,11 +50,23 @@ public class NewsForm extends ValidatorForm {
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
-
-        if (request.getHeader("referer").endsWith("newsNew.do")){
+        String referer = request.getHeader("referer");
+        if (referer.endsWith("newsEdition.do?method=view&id="+news.getId())){
+            validateNewComment(errors);
+        }
+        if (referer.endsWith("newsNew.do")){
             validateNews(errors);
         }
         return errors;
+    }
+
+    private void validateNewComment(ActionErrors errors) {
+        if (!newComment.getAuthor().matches(".{1,50}")){
+            errors.add("author",new ActionMessage("err.comment.author.required"));
+        }
+        if (!newComment.getContent().matches(".{1,400}")){
+            errors.add("content",new ActionMessage("err.comment.content.required"));
+        }
     }
 
     private void validateNews(ActionErrors errors) {
