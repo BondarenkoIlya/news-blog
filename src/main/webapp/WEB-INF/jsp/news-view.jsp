@@ -22,13 +22,13 @@
         <bean:message key="comment.author"/> - ${comment.author}<br>
         <bean:message key="comment.date"/> - <fmt:formatDate type="both" value="${comment.date.toDate()}"/><br>
         <bean:message key="comment.content"/>  ${comment.content}<br>
-        <html:link action="/commentEdit.do?method=delete&id=${comment.id}&news_id=${newsForm.news.id}"><bean:message
+        <html:link action="/commentDelete.do?id=${comment.id}&news_id=${newsForm.news.id}"><bean:message
                 key="comment.delete"/></html:link><br>
     </logic:iterate>
 </div>
 <div>
     <bean:message key="comment.new"/><br>
-    <html:form action="/commentEdit.do?method=create&news_id=${newsForm.news.id}">
+    <html:form action="/commentCreate.do?news_id=${newsForm.news.id}">
         <bean:message key="comment.author"/> -
         <html:text property="newComment.author" name="newsForm"/><br>
         <bean:message key="comment.content"/> -

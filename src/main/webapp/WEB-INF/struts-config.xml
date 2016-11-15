@@ -48,13 +48,21 @@
                 parameter="delete">
             <forward name="showNewsList" path="/newsList.do" redirect="true"/>
         </action>
-        <action path="/commentEdit"
+
+        <action path="/commentCreate"
                 type="com.epam.ilya.action.EditCommentAction"
                 name="newsForm"
-                parameter="method"
+                parameter="create"
+                validate="true"
                 scope="request">
             <forward name="success" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
+        <action path="/commentDelete"
+                type="com.epam.ilya.action.EditCommentAction"
+                parameter="delete">
+            <forward name="success" path="/newsEdition.do?method=view" redirect="true"/>
+        </action>
+
         <action path="/changeLocale"
                 type="com.epam.ilya.action.ChangeLocaleAction"
                 name="newsForm"
