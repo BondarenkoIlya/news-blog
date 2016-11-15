@@ -27,6 +27,9 @@
     </logic:iterate>
 </div>
 <div>
+    <div style="color: darkred">
+        <html:errors/>
+    </div>
     <bean:message key="comment.new"/><br>
     <html:form action="/commentCreate.do?news_id=${newsForm.news.id}">
         <bean:message key="comment.author"/> -

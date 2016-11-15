@@ -9,6 +9,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.actions.DispatchAction;
+import org.apache.struts.actions.MappingDispatchAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Ilya_Bondarenko
  */
 
-public class EditCommentAction extends DispatchAction {
+public class EditCommentAction extends MappingDispatchAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(EditCommentAction.class);
     private static final String ID = "id";
     private static final String NEWS_ID = "news_id";

@@ -2,8 +2,13 @@ package com.epam.ilya.form;
 
 import com.epam.ilya.model.Comment;
 import com.epam.ilya.model.News;
-import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.*;
+import org.apache.struts.config.ForwardConfig;
+import org.apache.struts.config.ModuleConfig;
+import org.apache.struts.config.impl.ModuleConfigImpl;
 import org.apache.struts.validator.ValidatorForm;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Data transfer object's class for containing news information
@@ -39,6 +44,4 @@ public class NewsForm extends ValidatorForm {
     public void setEditDate(String editDate) {
         this.editDate = editDate;
     }
-
-
 }

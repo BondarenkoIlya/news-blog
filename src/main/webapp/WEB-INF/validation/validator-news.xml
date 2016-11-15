@@ -9,6 +9,9 @@
             <field property="news.title" depends="required">
                 <msg name="required" key="err.news.title.required"/>
             </field>
+            <field property="newComment.author" depends="required">
+                <msg name="required" key="err.comment.author.required"/>
+            </field>
         </form>
     </formset>
 </form-validation>
