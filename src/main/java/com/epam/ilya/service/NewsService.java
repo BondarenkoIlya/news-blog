@@ -107,16 +107,15 @@ public class NewsService {
      *
      * @param news editing news
      * @param id   of selected news
-     * @param date
      * @return news
      * @throws ServiceException
      */
 
-    public News updateOrCreateNewsById(News news, String id, String date) throws ServiceException {
+    public News updateOrCreateNewsById(News news, String id) throws ServiceException {
         if (id.matches(ID_REGEX)) {
             news.setId(Integer.parseInt(id));
         }
-        if (!"".equals(date)){
+        /*if (!"".equals(date)){
             DateTime dateTime;
             try {
                 DateTimeFormatter pattern = DateTimeFormat.forPattern("dd/MM/yyyy");
@@ -125,7 +124,7 @@ public class NewsService {
             } catch (IllegalArgumentException e) {
                 LOGGER.error("Input date value is incorrect",e);
             }
-        }
+        }*/
         try (AbstractDaoFactory daoFactory = AbstractDaoFactory.getDaoFactory(daoType)) {
             NewsDao newsDao = daoFactory.getDao(NewsDao.class);
             if (news.getId() != 0) {

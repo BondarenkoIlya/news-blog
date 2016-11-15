@@ -42,9 +42,8 @@ public class EditNewsAction extends MappingDispatchAction {
         String id = request.getParameter(ID);
         NewsService service = new NewsService();
         News news = newsForm.getNews();
-        String date = newsForm.getEditDate();
         try {
-            news = service.updateOrCreateNewsById(news, id, date);
+            news = service.updateOrCreateNewsById(news, id);
         } catch (ServiceException e) {
             throw new ActionException("Cannot update news", e);
         }

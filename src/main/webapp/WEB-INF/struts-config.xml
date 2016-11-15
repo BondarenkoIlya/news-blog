@@ -41,7 +41,7 @@
                 name="newsForm"
                 parameter="update"
                 validate="true"
-                input="news-edit"
+                input="/selectRedirect.do"
                 scope="request">
             <forward name="showNews" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
@@ -57,11 +57,12 @@
                 type="com.epam.ilya.action.EditCommentAction"
                 name="newsForm"
                 parameter="create"
-                input="/newsList.do"
+                input="/selectRedirect.do"
                 validate="true"
                 scope="request">
             <forward name="success" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
+
         <action path="/commentDelete"
                 type="com.epam.ilya.action.EditCommentAction"
                 parameter="delete">
@@ -74,6 +75,12 @@
                 parameter="method"
                 scope="request">
             <forward name="success" path="/newsList.do" redirect="true"/>
+        </action>
+
+        <action path="/selectRedirect"
+                type="com.epam.ilya.action.RedirectAfterInvalidAction">
+            <forward name="newsEdition" path="/newsEdition.do?method=edition" redirect="true"/>
+            <forward name="commentCreation" path="/newsEdition.do?method=view" />
         </action>
     </action-mappings>
 
