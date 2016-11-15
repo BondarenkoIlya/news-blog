@@ -34,6 +34,8 @@
                 parameter="news-edit"
                 validate="false">
         </action>
+
+        <!--Change input value-->
         <action path="/newsUpdate"
                 type="com.epam.ilya.action.EditNewsAction"
                 name="newsForm"
@@ -43,12 +45,14 @@
                 scope="request">
             <forward name="showNews" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
+
         <action path="/newsDelete"
                 type="com.epam.ilya.action.EditNewsAction"
                 parameter="delete">
             <forward name="showNewsList" path="/newsList.do" redirect="true"/>
         </action>
 
+        <!--Change input value-->
         <action path="/commentCreate"
                 type="com.epam.ilya.action.EditCommentAction"
                 name="newsForm"
