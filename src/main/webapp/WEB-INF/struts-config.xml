@@ -54,6 +54,7 @@
                 name="newsForm"
                 parameter="create"
                 validate="true"
+                input="news-view"
                 scope="request">
             <forward name="success" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
