@@ -21,11 +21,10 @@ public class CommentForm extends ValidatorForm {
 
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-        ActionErrors errors = super.validate(mapping, request);
+        ActionErrors errors = new ActionErrors();
         validateNewComment(errors);
         return errors;
     }
-
 
     private void validateNewComment(ActionErrors errors) {
         if (!newComment.getAuthor().matches(".{1,50}")) {

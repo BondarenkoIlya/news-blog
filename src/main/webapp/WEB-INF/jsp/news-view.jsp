@@ -33,9 +33,9 @@
     <bean:message key="comment.new"/><br>
     <html:form action="/commentCreate.do?news_id=${newsForm.news.id}">
         <bean:message key="comment.author"/> -
-        <html:text property="newComment.author" name="newsForm"/><br>
+        <html:text property="newComment.author" name="commentForm"/><br>
         <bean:message key="comment.content"/> -
-        <html:textarea property="newComment.content" name="newsForm"/><br>
+        <html:textarea property="newComment.content" name="commentForm"/><br>
         <html:submit><bean:message key="comment.button"/></html:submit>
     </html:form>
 </div>

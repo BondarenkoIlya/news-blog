@@ -1,5 +1,6 @@
 package com.epam.ilya.action;
 
+import com.epam.ilya.form.CommentForm;
 import com.epam.ilya.form.NewsForm;
 import com.epam.ilya.model.Comment;
 import com.epam.ilya.service.NewsService;
@@ -40,16 +41,15 @@ public class EditCommentAction extends MappingDispatchAction {
 
     public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         NewsService service = new NewsService();
-        NewsForm newsForm = (NewsForm) form;
+        CommentForm commentForm = (CommentForm) form;
         String newsId = request.getParameter(NEWS_ID);
-        Comment newComment = newsForm.getNewComment();
+        Comment newComment = commentForm.getNewComment();
         LOGGER.debug("Try to create comment - {}", newComment);
         try {
             service.createCommentForNewsWithId(newComment, newsId);
         } catch (ServiceException e) {
             throw new ActionException("Cannot create comment for news", e);
         }
-        newsForm.resetNewComment();
         ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward(SUCCESS));
         actionRedirect.addParameter(ID, newsId);
         return actionRedirect;

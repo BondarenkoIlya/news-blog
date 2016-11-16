@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class NewsForm extends ValidatorForm {
     private News news = new News();
-    private Comment newComment = new Comment();
     private String editDate;
 
     public void setNews(News news) {
@@ -29,14 +28,6 @@ public class NewsForm extends ValidatorForm {
 
     public News getNews() {
         return news;
-    }
-
-    public Comment getNewComment() {
-        return newComment;
-    }
-
-    public void setNewComment(Comment newComment) {
-        this.newComment = newComment;
     }
 
     public String getEditDate() {
@@ -52,11 +43,6 @@ public class NewsForm extends ValidatorForm {
         ActionErrors errors = new ActionErrors();
         String referer = request.getHeader("referer");
 
-        if (referer.endsWith("newsEdition.do?method=view&id=" + news.getId())){
-            request.getSession().setAttribute("next","addComment");
-            request.getSession().setAttribute("newsId",news.getId());
-            validateNewComment(errors);
-        }
         if (referer.endsWith("newsEdition.do?method=edition&id=" + news.getId())){
             request.getSession().setAttribute("next","newsEdition");
             request.getSession().setAttribute("newsId",news.getId());
@@ -66,20 +52,6 @@ public class NewsForm extends ValidatorForm {
             validateNews(errors);
         }
         return errors;
-    }
-
-    public void resetNewComment() {
-        newComment.setAuthor("");
-        newComment.setContent("");
-    }
-
-    private void validateNewComment(ActionErrors errors) {
-        if (!newComment.getAuthor().matches(".{1,50}")){
-            errors.add("author",new ActionMessage("err.comment.author.required"));
-        }
-        if (!newComment.getContent().matches(".{1,400}")){
-            errors.add("content",new ActionMessage("err.comment.content.required"));
-        }
     }
 
     private void validateNews(ActionErrors errors) {

@@ -1,5 +1,6 @@
 package com.epam.ilya.action;
 
+import com.epam.ilya.form.CommentForm;
 import com.epam.ilya.form.NewsForm;
 import com.epam.ilya.model.News;
 import com.epam.ilya.service.NewsService;
@@ -33,6 +34,7 @@ public class ShowNewsPageAction extends DispatchAction {
 
     public ActionForward view(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         takeNews((NewsForm) form, request);
+        request.setAttribute("commentForm",new CommentForm());
         return mapping.findForward("view");
     }
 

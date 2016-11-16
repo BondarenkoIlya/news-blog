@@ -9,6 +9,8 @@
                    type="com.epam.ilya.form.NewsListForm"/>
         <form-bean name="newsForm"
                    type="com.epam.ilya.form.NewsForm"/>
+        <form-bean name="commentForm"
+                   type="com.epam.ilya.form.CommentForm"/>
     </form-beans>
 
     <action-mappings>
@@ -41,7 +43,7 @@
                 name="newsForm"
                 parameter="update"
                 validate="true"
-                input="/selectRedirect.do"
+                input=""
                 scope="session">
             <forward name="showNews" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
@@ -55,9 +57,9 @@
         <!--Change input value-->
         <action path="/commentCreate"
                 type="com.epam.ilya.action.EditCommentAction"
-                name="newsForm"
+                name="commentForm"
                 parameter="create"
-                input="/selectRedirect.do"
+                input="news-view"
                 validate="true"
                 scope="session">
             <forward name="success" path="/newsEdition.do?method=view" redirect="true"/>
@@ -75,12 +77,12 @@
             <forward name="success" path="/newsList.do" redirect="true"/>
         </action>
 
-        <action path="/selectRedirect"
+        <!--<action path="/selectRedirect"
                 type="com.epam.ilya.action.RedirectAfterInvalidAction">
             <forward name="newsEdition" path="/newsEdition.do?method=edition" />
             <forward name="newsNew" path="/newsNew.do" redirect="true" />
             <forward name="addComment" path="/newsEdition.do?method=view" />
-        </action>
+        </action>-->
     </action-mappings>
 
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
