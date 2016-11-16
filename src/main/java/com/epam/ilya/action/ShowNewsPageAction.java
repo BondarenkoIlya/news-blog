@@ -61,6 +61,7 @@ public class ShowNewsPageAction extends DispatchAction {
             throw new ActionException("Cannot get news by id", e);
         }
         NewsForm newsForm = form;
+        newsForm.setEditDate(news.getDate().toString("dd/MM/yyyy"));
         newsForm.setNews(news);
     }
 }

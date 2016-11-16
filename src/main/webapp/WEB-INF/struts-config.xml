@@ -23,7 +23,7 @@
                 name="newsForm"
                 parameter="method"
                 validate="false"
-                scope="request">
+                scope="session">
             <forward name="view" path="news-view"/>
             <forward name="edition" path="news-edit"/>
         </action>
@@ -42,7 +42,7 @@
                 parameter="update"
                 validate="true"
                 input="/selectRedirect.do"
-                scope="request">
+                scope="session">
             <forward name="showNews" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
 
@@ -59,7 +59,7 @@
                 parameter="create"
                 input="/selectRedirect.do"
                 validate="true"
-                scope="request">
+                scope="session">
             <forward name="success" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
 
@@ -71,16 +71,15 @@
 
         <action path="/changeLocale"
                 type="com.epam.ilya.action.ChangeLocaleAction"
-                name="newsForm"
-                parameter="method"
-                scope="request">
+                parameter="method">
             <forward name="success" path="/newsList.do" redirect="true"/>
         </action>
 
         <action path="/selectRedirect"
                 type="com.epam.ilya.action.RedirectAfterInvalidAction">
-            <forward name="newsEdition" path="/newsEdition.do?method=edition" redirect="true"/>
-            <forward name="commentCreation" path="/newsEdition.do?method=view" />
+            <forward name="newsEdition" path="/newsEdition.do?method=edition" />
+            <forward name="newsNew" path="/newsNew.do" redirect="true" />
+            <forward name="addComment" path="/newsEdition.do?method=view" />
         </action>
     </action-mappings>
 

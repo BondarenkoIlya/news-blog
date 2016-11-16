@@ -51,13 +51,26 @@ public class NewsForm extends ValidatorForm {
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
         String referer = request.getHeader("referer");
-        if (referer.endsWith("newsEdition.do?method=view&id="+news.getId())){
+
+        if (referer.endsWith("newsEdition.do?method=view&id=" + news.getId())){
+            request.getSession().setAttribute("next","addComment");
+            request.getSession().setAttribute("newsId",news.getId());
             validateNewComment(errors);
+        }
+        if (referer.endsWith("newsEdition.do?method=edition&id=" + news.getId())){
+            request.getSession().setAttribute("next","newsEdition");
+            request.getSession().setAttribute("newsId",news.getId());
+            validateNews(errors);
         }
         if (referer.endsWith("newsNew.do")){
             validateNews(errors);
         }
         return errors;
+    }
+
+    public void resetNewComment() {
+        newComment.setAuthor("");
+        newComment.setContent("");
     }
 
     private void validateNewComment(ActionErrors errors) {

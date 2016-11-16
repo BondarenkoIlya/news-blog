@@ -49,6 +49,7 @@ public class EditCommentAction extends MappingDispatchAction {
         } catch (ServiceException e) {
             throw new ActionException("Cannot create comment for news", e);
         }
+        newsForm.resetNewComment();
         ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward(SUCCESS));
         actionRedirect.addParameter(ID, newsId);
         return actionRedirect;
