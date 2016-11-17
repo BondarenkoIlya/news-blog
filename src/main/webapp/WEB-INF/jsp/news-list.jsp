@@ -7,6 +7,7 @@
 
 
 <h3><bean:message key="news.list"/></h3>
+<div class="well">
 <logic:iterate name="newsListForm" property="newsList" id="news">
     <bean:message key="news.title"/><br/>
     <bean:write name="news" property="title"/><br>
@@ -18,3 +19,4 @@
     </html:link><br>
     <br>
 </logic:iterate>
+</div>
