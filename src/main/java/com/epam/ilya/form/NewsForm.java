@@ -39,21 +39,12 @@ public class NewsForm extends ValidatorForm {
 
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-        ActionErrors errors = new ActionErrors();
-        validateNews(errors);
+        ActionErrors errors = super.validate(mapping, request);
+        validateNewsDate(errors);
         return errors;
     }
 
-    private void validateNews(ActionErrors errors) {
-        if (!news.getTitle().matches(".{1,400}")) {
-            errors.add("title", new ActionMessage("err.news.title.required"));
-        }
-        if (!news.getBrief().matches(".{1,4000}")) {
-            errors.add("brief", new ActionMessage("err.news.brief.required"));
-        }
-        if (!news.getContent().matches(".{1,4000}")) {
-            errors.add("content", new ActionMessage("err.news.content.required"));
-        }
+    private void validateNewsDate(ActionErrors errors) {
         DateTime dateTime;
         try {
             DateTimeFormatter pattern = DateTimeFormat.forPattern("dd/MM/yyyy");

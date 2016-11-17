@@ -19,19 +19,4 @@ public class CommentForm extends ValidatorForm {
         this.newComment = newComment;
     }
 
-    @Override
-    public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-        ActionErrors errors = new ActionErrors();
-        validateNewComment(errors);
-        return errors;
-    }
-
-    private void validateNewComment(ActionErrors errors) {
-        if (!newComment.getAuthor().matches(".{1,50}")) {
-            errors.add("author", new ActionMessage("err.comment.author.required"));
-        }
-        if (!newComment.getContent().matches(".{1,400}")) {
-            errors.add("content", new ActionMessage("err.comment.content.required"));
-        }
-    }
 }
