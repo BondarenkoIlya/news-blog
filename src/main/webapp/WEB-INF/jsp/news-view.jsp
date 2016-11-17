@@ -27,11 +27,11 @@
     </logic:iterate>
 </div>
 <div>
-    <div style="color: darkred">
-        <html:errors/>
-    </div>
     <bean:message key="comment.new"/><br>
     <html:form action="/commentCreate.do?news_id=${newsForm.news.id}">
+        <div style="color: darkred">
+            <html:errors />
+        </div>
         <bean:message key="comment.author"/> -
         <html:text property="newComment.author" name="commentForm"/><br>
         <bean:message key="comment.content"/> -
