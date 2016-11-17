@@ -101,7 +101,7 @@
                        javax.servlet.http.HttpServletRequest"/>
 
 
-        <!-- <validator name="minlength"
+         <validator name="minlength"
                     classname="org.apache.struts.validator.FieldChecks"
                     method="validateMinLength"
                     methodParams="java.lang.Object,
@@ -127,45 +127,6 @@
                     depends=""
                     msg="errors.maxlength"
                     jsFunction="org.apache.commons.validator.javascript.validateMaxLength"/>
-
-
-         <validator name="integer"
-                    classname="org.apache.struts.validator.FieldChecks"
-                    method="validateInteger"
-                    methodParams="java.lang.Object,
-                        org.apache.commons.validator.ValidatorAction,
-                        org.apache.commons.validator.Field,
-                        org.apache.struts.action.ActionMessages,
-                        org.apache.commons.validator.Validator,
-                        javax.servlet.http.HttpServletRequest"
-                    depends=""
-                    msg="errors.integer"
-                    jsFunctionName="IntegerValidations"/>
-
-         <validator name="date"
-                    classname="org.apache.struts.validator.FieldChecks"
-                    method="validateDate"
-                    methodParams="java.lang.Object,
-                        org.apache.commons.validator.ValidatorAction,
-                        org.apache.commons.validator.Field,
-                        org.apache.struts.action.ActionMessages,
-                        org.apache.commons.validator.Validator,
-                        javax.servlet.http.HttpServletRequest"
-                    depends=""
-                    msg="errors.date"
-                    jsFunctionName="DateValidations"/>
-
-         <validator name="email"
-                    classname="org.apache.struts.validator.FieldChecks"
-                    method="validateEmail"
-                    methodParams="java.lang.Object,
-                        org.apache.commons.validator.ValidatorAction,
-                        org.apache.commons.validator.Field,
-                        org.apache.struts.action.ActionMessages,
-                        org.apache.commons.validator.Validator,
-                        javax.servlet.http.HttpServletRequest"
-                    depends=""
-                    msg="errors.email"/>-->
 
         <validator name="includeJavaScriptUtilities"
                    classname=""
