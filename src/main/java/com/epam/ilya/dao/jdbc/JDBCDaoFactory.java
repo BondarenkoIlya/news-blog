@@ -39,7 +39,7 @@ public class JDBCDaoFactory extends AbstractDaoFactory {
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
-            throw new DaoException("Cannot set auto commit- false",e);
+            throw new DaoException("Cannot set auto commit- false", e);
         }
     }
 
@@ -48,7 +48,7 @@ public class JDBCDaoFactory extends AbstractDaoFactory {
         try {
             connection.setAutoCommit(true);
         } catch (SQLException e) {
-            throw new DaoException("Cannot set auto commit true",e);
+            throw new DaoException("Cannot set auto commit true", e);
         }
     }
 
@@ -57,7 +57,7 @@ public class JDBCDaoFactory extends AbstractDaoFactory {
         try {
             connection.rollback();
         } catch (SQLException e) {
-            throw new DaoException("Cannot rollback transaction",e);
+            throw new DaoException("Cannot rollback transaction", e);
         }
     }
 

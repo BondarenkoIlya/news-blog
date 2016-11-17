@@ -1,7 +1,6 @@
 package com.epam.ilya.action;
 
 import com.epam.ilya.form.CommentForm;
-import com.epam.ilya.form.NewsForm;
 import com.epam.ilya.model.Comment;
 import com.epam.ilya.service.NewsService;
 import com.epam.ilya.service.ServiceException;
@@ -9,7 +8,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.actions.DispatchAction;
 import org.apache.struts.actions.MappingDispatchAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

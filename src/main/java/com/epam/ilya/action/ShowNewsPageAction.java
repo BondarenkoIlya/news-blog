@@ -34,7 +34,7 @@ public class ShowNewsPageAction extends DispatchAction {
 
     public ActionForward view(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         takeNews((NewsForm) form, request);
-        request.setAttribute("commentForm",new CommentForm());
+        request.setAttribute("commentForm", new CommentForm());
         return mapping.findForward("view");
     }
 

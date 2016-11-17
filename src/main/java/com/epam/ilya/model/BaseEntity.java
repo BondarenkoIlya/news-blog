@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Ilya_Bondarenko
  */
 
-public class BaseEntity implements Serializable{
+public class BaseEntity implements Serializable {
 
     private int id;
 

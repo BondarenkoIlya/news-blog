@@ -1,8 +1,8 @@
 package com.epam.ilya.dao.hibernate;
 
 import com.epam.ilya.dao.AbstractDaoFactory;
-import com.epam.ilya.dao.jdbc.DaoEntity;
 import com.epam.ilya.dao.DaoException;
+import com.epam.ilya.dao.jdbc.DaoEntity;
 
 public class HibernateDaoFactory extends AbstractDaoFactory {
     @Override
