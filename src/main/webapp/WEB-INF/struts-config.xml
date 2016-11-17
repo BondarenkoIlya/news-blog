@@ -36,14 +36,13 @@
                 parameter="news-edit"
                 validate="false">
         </action>
-
-        <!--Change input value-->
+        
         <action path="/newsUpdate"
                 type="com.epam.ilya.action.EditNewsAction"
                 name="newsForm"
                 parameter="update"
                 validate="true"
-                input=""
+                input="news-edit"
                 scope="session">
             <forward name="showNews" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
@@ -54,7 +53,6 @@
             <forward name="showNewsList" path="/newsList.do" redirect="true"/>
         </action>
 
-        <!--Change input value-->
         <action path="/commentCreate"
                 type="com.epam.ilya.action.EditCommentAction"
                 name="commentForm"
@@ -76,13 +74,6 @@
                 parameter="method">
             <forward name="success" path="/newsList.do" redirect="true"/>
         </action>
-
-        <!--<action path="/selectRedirect"
-                type="com.epam.ilya.action.RedirectAfterInvalidAction">
-            <forward name="newsEdition" path="/newsEdition.do?method=edition" />
-            <forward name="newsNew" path="/newsNew.do" redirect="true" />
-            <forward name="addComment" path="/newsEdition.do?method=view" />
-        </action>-->
     </action-mappings>
 
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
@@ -94,7 +85,7 @@
                       value="/WEB-INF/tiles/tiles-defs.xml"/>
         <set-property property="moduleAware" value="true"/>
     </plug-in>
-    <plug-in className="org.apache.struts.validator.ValidatorPlugIn" >
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
         <set-property property="pathnames"
                       value="/WEB-INF/validation/validator-rules.xml, /WEB-INF/validation/validator-news.xml"/>
 
