@@ -7,9 +7,6 @@ import com.epam.ilya.dao.jdbc.CommentDao;
 import com.epam.ilya.dao.jdbc.NewsDao;
 import com.epam.ilya.model.Comment;
 import com.epam.ilya.model.News;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -156,7 +153,7 @@ public class NewsService {
      */
 
     public void deleteComment(String id) throws ServiceException {
-        try (AbstractDaoFactory daoFactory = AbstractDaoFactory.getDaoFactory(daoType)){
+        try (AbstractDaoFactory daoFactory = AbstractDaoFactory.getDaoFactory(daoType)) {
             CommentDao commentDao = daoFactory.getDao(CommentDao.class);
             commentDao.delete(Integer.parseInt(id));
         } catch (DaoException e) {
