@@ -9,9 +9,6 @@
         <dt><bean:message key="news.title"/></dt>
         <dd><bean:write name="newsForm" property="news.title"/></dd>
 
-        <dt><bean:message key="news.title"/></dt>
-        <dd><bean:write name="newsForm" property="news.title"/></dd>
-
         <dt><bean:message key="news.date"/></dt>
         <dd><fmt:formatDate type="date" value="${newsForm.news.date.toDate()}"/></dd>
 

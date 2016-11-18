@@ -14,14 +14,13 @@
     $(document).ready(function () {
         $('#datePicker')
                 .datepicker({
-                    format: 'mm/dd/yyyy',
+                    format: 'dd/mm/yyyy',
                     endDate: "0d",
                     clearBtn: true,
                     autoclose: true,
                     todayHighlight: true
                 })
                 .on('changeDate', function (e) {
-                    // Revalidate the date field
                     $('#eventForm').formValidation('revalidateField', 'date');
                 });
     });

@@ -25,7 +25,7 @@
                 name="newsForm"
                 parameter="method"
                 validate="false"
-                scope="session">
+                scope="request">
             <forward name="view" path="news-view"/>
             <forward name="edition" path="news-edit"/>
         </action>
