@@ -1,5 +1,6 @@
 package com.epam.ilya.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -7,9 +8,12 @@ import java.io.Serializable;
  *
  * @author Ilya_Bondarenko
  */
-
+@MappedSuperclass
 public class BaseEntity implements Serializable {
 
+    @Id
+    @SequenceGenerator(name = "SEQ" , sequenceName = "NEWS_SEQ", allocationSize = 1)
+    @GeneratedValue(generator = "SEQ",strategy = GenerationType.SEQUENCE)
     private int id;
 
     public BaseEntity() {

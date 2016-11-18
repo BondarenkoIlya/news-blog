@@ -2,6 +2,7 @@ package com.epam.ilya.model;
 
 import org.joda.time.DateTime;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +11,24 @@ import java.util.List;
  *
  * @author Ilya_Bondarenko
  */
-
+@Entity
+@Table(name = "NEWS")
 public class News extends BaseEntity {
+
+    @Column(name = "TITLE")
     private String title;
+
+    @Column(name = "\"date\"")
+    @Convert(converter = DateTimeConverter.class)
     private DateTime date;
+
+    @Column(name = "BRIEF")
     private String brief;
+
+    @Column(name = "CONTENT")
     private String content;
+
+    @OneToMany(mappedBy = "news",cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     public News() {
