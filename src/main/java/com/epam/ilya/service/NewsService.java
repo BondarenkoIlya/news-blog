@@ -1,10 +1,8 @@
 package com.epam.ilya.service;
 
-import com.epam.ilya.dao.AbstractDaoFactory;
+import com.epam.ilya.dao.CommentDao;
 import com.epam.ilya.dao.DaoException;
-import com.epam.ilya.dao.DaoType;
-import com.epam.ilya.dao.jdbc.CommentDao;
-import com.epam.ilya.dao.jdbc.NewsDao;
+import com.epam.ilya.dao.NewsDao;
 import com.epam.ilya.model.Comment;
 import com.epam.ilya.model.News;
 import org.slf4j.Logger;
@@ -21,8 +19,6 @@ import java.util.List;
 public class NewsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(NewsService.class);
     private static final String ID_REGEX = "\\p{N}+";
-    private static DaoType daoType = DaoType.JDBC;
-
 
     /**
      * Method gets list of all news
@@ -33,16 +29,15 @@ public class NewsService {
 
     public List<News> getNewsList() throws ServiceException {
         List<News> newsList;
-        try (AbstractDaoFactory daoFactory = AbstractDaoFactory.getDaoFactory(daoType)) {
-            NewsDao newsDao = daoFactory.getDao(NewsDao.class);
-            newsList = newsDao.getNewsList();
+        try {
+            NewsDao newsDao = new NewsDao();
+            newsList = newsDao.findAll();
         } catch (DaoException e) {
             LOGGER.error("Cannot create news dao for giving news list", e);
             throw new ServiceException("Cannot create news dao for giving news list", e);
         }
         return newsList;
     }
-
 
     /**
      * Method gets selected by id news
@@ -54,19 +49,9 @@ public class NewsService {
 
     public News getNewsById(String id) throws ServiceException {
         News news = new News();
-        try (AbstractDaoFactory daoFactory = AbstractDaoFactory.getDaoFactory(daoType)) {
-            try {
-                NewsDao newsDao = daoFactory.getDao(NewsDao.class);
-                CommentDao commentDao = daoFactory.getDao(CommentDao.class);
-                daoFactory.startTransaction();
-                news = newsDao.findById(Integer.parseInt(id));
-                List<Comment> comments = commentDao.getNewsComments(news);
-                news.setComments(comments);
-                daoFactory.commitTransaction();
-            } catch (DaoException e) {
-                daoFactory.rollbackTransaction();
-                throw new ServiceException("Cannot create news dao for finding news by id", e);
-            }
+        try {
+            NewsDao newsDao = new NewsDao();
+            news = newsDao.findById(Integer.parseInt(id));
         } catch (DaoException e) {
             LOGGER.error("Cannot create news dao for finding news by id", e);
             throw new ServiceException("Cannot create dao factory", e);
@@ -82,18 +67,9 @@ public class NewsService {
      */
 
     public void deleteNews(String id) throws ServiceException {
-        try (AbstractDaoFactory daoFactory = AbstractDaoFactory.getDaoFactory(daoType)) {
-            try {
-                CommentDao commentDao = daoFactory.getDao(CommentDao.class);
-                NewsDao newsDao = daoFactory.getDao(NewsDao.class);
-                daoFactory.startTransaction();
-                commentDao.deleteCommentsByNews(Integer.parseInt(id));
-                newsDao.delete(Integer.parseInt(id));
-                daoFactory.commitTransaction();
-            } catch (DaoException e) {
-                daoFactory.rollbackTransaction();
-                throw new ServiceException("Cannot create dao for deactivating news", e);
-            }
+        try {
+            NewsDao newsDao = new NewsDao();
+            newsDao.delete(Integer.parseInt(id));
         } catch (DaoException e) {
             throw new ServiceException("Cannot create dao factory", e);
         }
@@ -112,17 +88,14 @@ public class NewsService {
         if (id.matches(ID_REGEX)) {
             news.setId(Integer.parseInt(id));
         }
-        try (AbstractDaoFactory daoFactory = AbstractDaoFactory.getDaoFactory(daoType)) {
-            NewsDao newsDao = daoFactory.getDao(NewsDao.class);
-            if (news.getId() != 0) {
-                newsDao.update(news);
-            } else {
-                news = newsDao.create(news);
-            }
+        News newNews;
+        try {
+            NewsDao newsDao = new NewsDao();
+            newNews = newsDao.update(news);
         } catch (DaoException e) {
             throw new ServiceException("Cannot update news", e);
         }
-        return news;
+        return newNews;
     }
 
     /**
@@ -134,12 +107,12 @@ public class NewsService {
      */
 
     public void createCommentForNewsWithId(Comment newComment, String newsId) throws ServiceException {
-        News news = new News();
-        news.setId(Integer.parseInt(newsId));
-        newComment.setNews(news);
-        try (AbstractDaoFactory daoFactory = AbstractDaoFactory.getDaoFactory(daoType)) {
-            CommentDao commentDao = daoFactory.getDao(CommentDao.class);
-            commentDao.create(newComment);
+        try {
+            NewsDao newsDao = new NewsDao();
+            News news = newsDao.findById(Integer.parseInt(newsId));
+            newComment.setNewsId(news.getId());
+            CommentDao commentDao = new CommentDao();
+            commentDao.update(newComment);
         } catch (DaoException e) {
             throw new ServiceException("Cannot create new comment", e);
         }
@@ -153,8 +126,8 @@ public class NewsService {
      */
 
     public void deleteComment(String id) throws ServiceException {
-        try (AbstractDaoFactory daoFactory = AbstractDaoFactory.getDaoFactory(daoType)) {
-            CommentDao commentDao = daoFactory.getDao(CommentDao.class);
+        try {
+            CommentDao commentDao = new CommentDao();
             commentDao.delete(Integer.parseInt(id));
         } catch (DaoException e) {
             throw new ServiceException("Cannot deactivate comment", e);

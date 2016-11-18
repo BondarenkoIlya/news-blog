@@ -9,16 +9,6 @@ package com.epam.ilya.dao;
 public interface Dao<T> {
 
     /**
-     * Method creates record in database by <T> object
-     *
-     * @param t with out id
-     * @return created <T> object with id
-     * @throws DaoException
-     */
-
-    T create(T t) throws DaoException;
-
-    /**
      * Method finds record by id and picks <T> entity
      *
      * @param id for finding <T> object in database
@@ -35,7 +25,7 @@ public interface Dao<T> {
      * @throws DaoException
      */
 
-    void update(T t) throws DaoException;
+    T update(T t) throws DaoException;
 
     /**
      * Method deletes correspondent record from base

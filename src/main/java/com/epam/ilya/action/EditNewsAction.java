@@ -41,13 +41,14 @@ public class EditNewsAction extends MappingDispatchAction {
         String id = request.getParameter(ID);
         NewsService service = new NewsService();
         News news = newsForm.getNews();
+        News newNews;
         try {
-            news = service.updateOrCreateNewsById(news, id);
+            newNews = service.updateOrCreateNewsById(news, id);
         } catch (ServiceException e) {
             throw new ActionException("Cannot update news", e);
         }
         ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("showNews"));
-        actionRedirect.addParameter(ID, news.getId());
+        actionRedirect.addParameter(ID, newNews.getId());
         return actionRedirect;
     }
 
