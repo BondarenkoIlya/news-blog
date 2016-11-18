@@ -65,6 +65,12 @@
 
         <!--DB-->
         <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.4.Final</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>12.1.0.2</version>
@@ -134,6 +140,7 @@
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
         </dependency>
+
     </dependencies>
 
     <repositories>
