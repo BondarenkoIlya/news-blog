@@ -12,8 +12,8 @@ import java.io.Serializable;
 public class BaseEntity implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "SEQ" , sequenceName = "NEWS_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "SEQ",strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "SEQ", sequenceName = "NEWS_SEQ", allocationSize = 1)
+    @GeneratedValue(generator = "SEQ", strategy = GenerationType.SEQUENCE)
     private int id;
 
     public BaseEntity() {

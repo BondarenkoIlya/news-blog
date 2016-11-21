@@ -4,10 +4,7 @@ import com.epam.ilya.model.News;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,7 +42,7 @@ public class NewsDao extends DaoEntity implements Dao<News> {
 
     public List<News> findAll() throws DaoException {
         rebootManager();
-        Query query = entityManager.createQuery("FROM News",News.class);
+        Query query = entityManager.createQuery("FROM News", News.class);
         return query.getResultList();
     }
 }

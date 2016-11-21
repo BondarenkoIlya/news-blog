@@ -19,9 +19,9 @@
         <dd><bean:write name="newsForm" property="news.content"/></dd>
     </dl>
     <a href="<c:url value="/newsEdition.do?method=edition&id=${newsForm.news.id}"/>" role="button"
-            class="btn btn-default"><bean:message key="news.edition"/></a>
+       class="btn btn-default"><bean:message key="news.edition"/></a>
     <a href="<c:url value="/newsDelete.do?id=${newsForm.news.id}"/>" role="button"
-            class="btn btn-mini btn-warning"><bean:message key="news.delete"/></a>
+       class="btn btn-mini btn-warning"><bean:message key="news.delete"/></a>
 </div>
 <div>
     <bean:message key="comments"/>:<br>
@@ -32,8 +32,8 @@
                                                                         value="${comment.date.toDate()}"/></small>
             <p>${comment.content}</p>
             <a class="btn btn-mini btn-warning"
-                    href="<c:url value="/commentDelete.do?id=${comment.id}&news_id=${newsForm.news.id}"/>"
-                    role="button">
+               href="<c:url value="/commentDelete.do?id=${comment.id}&news_id=${newsForm.news.id}"/>"
+               role="button">
                 <bean:message key="comment.delete"/></a>
         </blockquote>
         <br/>

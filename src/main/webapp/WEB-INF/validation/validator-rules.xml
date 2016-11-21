@@ -101,32 +101,32 @@
                        javax.servlet.http.HttpServletRequest"/>
 
 
-         <validator name="minlength"
-                    classname="org.apache.struts.validator.FieldChecks"
-                    method="validateMinLength"
-                    methodParams="java.lang.Object,
+        <validator name="minlength"
+                   classname="org.apache.struts.validator.FieldChecks"
+                   method="validateMinLength"
+                   methodParams="java.lang.Object,
                         org.apache.commons.validator.ValidatorAction,
                         org.apache.commons.validator.Field,
                         org.apache.struts.action.ActionMessages,
                         org.apache.commons.validator.Validator,
                         javax.servlet.http.HttpServletRequest"
-                    depends=""
-                    msg="errors.minlength"
-                    jsFunction="org.apache.commons.validator.javascript.validateMinLength"/>
+                   depends=""
+                   msg="errors.minlength"
+                   jsFunction="org.apache.commons.validator.javascript.validateMinLength"/>
 
 
-         <validator name="maxlength"
-                    classname="org.apache.struts.validator.FieldChecks"
-                    method="validateMaxLength"
-                    methodParams="java.lang.Object,
+        <validator name="maxlength"
+                   classname="org.apache.struts.validator.FieldChecks"
+                   method="validateMaxLength"
+                   methodParams="java.lang.Object,
                         org.apache.commons.validator.ValidatorAction,
                         org.apache.commons.validator.Field,
                         org.apache.struts.action.ActionMessages,
                         org.apache.commons.validator.Validator,
                         javax.servlet.http.HttpServletRequest"
-                    depends=""
-                    msg="errors.maxlength"
-                    jsFunction="org.apache.commons.validator.javascript.validateMaxLength"/>
+                   depends=""
+                   msg="errors.maxlength"
+                   jsFunction="org.apache.commons.validator.javascript.validateMaxLength"/>
 
         <validator name="includeJavaScriptUtilities"
                    classname=""

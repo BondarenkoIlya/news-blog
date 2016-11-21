@@ -8,8 +8,8 @@
         <form name="newsForm">
             <field property="news.title" depends="required,maxlength,minlength">
                 <msg name="required" key="err.news.title.required"/>
-                <msg name="minlength" key="err.news.title.length.short" />
-                <msg name="maxlength" key="err.news.title.length.long" />
+                <msg name="minlength" key="err.news.title.length.short"/>
+                <msg name="maxlength" key="err.news.title.length.long"/>
 
                 <arg name="maxlength" key="${var:minlength}" position="0" resource="false"/>
                 <arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
@@ -28,8 +28,8 @@
             </field>
             <field property="news.brief" depends="required,maxlength,minlength">
                 <msg name="required" key="err.news.brief.required"/>
-                <msg name="minlength" key="err.news.brief.length.short" />
-                <msg name="maxlength" key="err.news.brief.length.long" />
+                <msg name="minlength" key="err.news.brief.length.short"/>
+                <msg name="maxlength" key="err.news.brief.length.long"/>
 
                 <arg name="maxlength" key="${var:minlength}" position="0" resource="false"/>
                 <arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
@@ -48,8 +48,8 @@
             </field>
             <field property="news.content" depends="required,maxlength,minlength">
                 <msg name="required" key="err.news.content.required"/>
-                <msg name="minlength" key="err.news.content.length.short" />
-                <msg name="maxlength" key="err.news.content.length.long" />
+                <msg name="minlength" key="err.news.content.length.short"/>
+                <msg name="maxlength" key="err.news.content.length.long"/>
 
                 <arg name="maxlength" key="${var:minlength}" position="0" resource="false"/>
                 <arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
@@ -70,8 +70,8 @@
         <form name="commentForm">
             <field property="newComment.author" depends="required,maxlength,minlength">
                 <msg name="required" key="err.comment.author.required"/>
-                <msg name="minlength" key="err.comment.author.length.short" />
-                <msg name="maxlength" key="err.comment.author.length.long" />
+                <msg name="minlength" key="err.comment.author.length.short"/>
+                <msg name="maxlength" key="err.comment.author.length.long"/>
 
                 <arg name="maxlength" key="${var:minlength}" position="0" resource="false"/>
                 <arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
@@ -90,8 +90,8 @@
             </field>
             <field property="newComment.content" depends="required,maxlength,minlength">
                 <msg name="required" key="err.comment.content.required"/>
-                <msg name="minlength" key="err.comment.content.length.short" />
-                <msg name="maxlength" key="err.comment.content.length.long" />
+                <msg name="minlength" key="err.comment.content.length.short"/>
+                <msg name="maxlength" key="err.comment.content.length.long"/>
 
                 <arg name="maxlength" key="${var:minlength}" position="0" resource="false"/>
                 <arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>

@@ -23,7 +23,7 @@ public class Comment extends BaseEntity {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "NEWS_ID" ,insertable = false,updatable = false , nullable = false)
+    @JoinColumn(name = "NEWS_ID", insertable = false, updatable = false, nullable = false)
     private News news;
 
     @Column(name = "NEWS_ID")

@@ -12,8 +12,10 @@
     </div>
     <div class="panel panel-info">
         <div class="list-group">
-            <div class="list-group-item"><html:link action="/newsList.do"><bean:message key="leftbar.link.news.list"/></html:link></div>
-            <div class="list-group-item"><html:link action="/newsNew.do"><bean:message key="leftbar.link.news.new"/></html:link></div>
+            <div class="list-group-item"><html:link action="/newsList.do"><bean:message
+                    key="leftbar.link.news.list"/></html:link></div>
+            <div class="list-group-item"><html:link action="/newsNew.do"><bean:message
+                    key="leftbar.link.news.new"/></html:link></div>
         </div>
     </div>
 </div>

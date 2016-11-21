@@ -28,7 +28,7 @@ public class News extends BaseEntity {
     @Column(name = "CONTENT")
     private String content;
 
-    @OneToMany(mappedBy = "news",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     public News() {

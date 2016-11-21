@@ -7,7 +7,7 @@ import javax.persistence.Converter;
 import java.sql.Date;
 
 @Converter
-public class DateTimeConverter implements AttributeConverter<DateTime,Date> {
+public class DateTimeConverter implements AttributeConverter<DateTime, Date> {
 
     @Override
     public Date convertToDatabaseColumn(DateTime dateTime) {
