@@ -52,7 +52,7 @@ public class NewsService {
         try {
             NewsDao newsDao = new NewsDao();
             news = newsDao.findById(Integer.parseInt(id));
-        } catch (DaoException e) {
+        } catch (DaoException | IllegalArgumentException e) {
             LOGGER.error("Cannot create news dao for finding news by id", e);
             throw new ServiceException("Cannot create dao factory", e);
         }

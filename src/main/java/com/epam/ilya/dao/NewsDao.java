@@ -16,10 +16,16 @@ import java.util.List;
 public class NewsDao extends DaoEntity implements Dao<News> {
     private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
 
+
+
     @Override
     public News findById(int id) throws DaoException {
         rebootManager();
-        return entityManager.find(News.class, id);
+        News news = entityManager.find(News.class, id);
+        if (news==null){
+            throw new DaoException("Do not find any news",new Exception());
+        }
+        return news;
     }
 
     @Override
