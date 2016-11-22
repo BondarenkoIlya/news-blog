@@ -21,4 +21,8 @@
         <put name="body" value="/WEB-INF/jsp/news-view.jsp"/>
     </definition>
 
+    <definition name="error-page" extends="common-template">
+        <put name="body" value="/WEB-INF/jsp/error-page.jsp"/>
+    </definition>
+
 </tiles-definitions>

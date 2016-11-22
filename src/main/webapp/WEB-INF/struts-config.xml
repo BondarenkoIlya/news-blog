@@ -13,6 +13,13 @@
                    type="com.epam.ilya.form.CommentForm"/>
     </form-beans>
 
+    <global-exceptions>
+        <exception
+                key="error.global.server"
+                type="com.epam.ilya.action.ActionException"
+                path="/WEB-INF/jsp/error-template.jsp"/>
+    </global-exceptions>
+
     <action-mappings>
         <action path="/newsList"
                 type="com.epam.ilya.action.ShowNewsListPageAction"
@@ -25,7 +32,7 @@
                 name="newsForm"
                 parameter="method"
                 validate="false"
-                scope="request">
+                scope="session">
             <forward name="view" path="news-view"/>
             <forward name="edition" path="news-edit"/>
         </action>
@@ -76,7 +83,8 @@
         </action>
     </action-mappings>
 
-    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" nocache="true"/>
+
 
     <message-resources parameter="i18n"/>
 

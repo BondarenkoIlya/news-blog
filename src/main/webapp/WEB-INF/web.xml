@@ -6,12 +6,12 @@
     <description>Struts application example</description>
 
     <error-page>
-        <location>/WEB-INF/jsp/error-page.jsp</location>
+        <location>/images/404.jpg</location>
         <error-code>404</error-code>
     </error-page>
 
     <error-page>
-        <location>/WEB-INF/jsp/error-page.jsp</location>
+        <location>/images/500.jpg</location>
         <error-code>500</error-code>
     </error-page>
 
