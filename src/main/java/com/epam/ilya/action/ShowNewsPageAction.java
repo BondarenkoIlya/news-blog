@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Class encapsulates functional for showing pages that contain {@link News}
@@ -65,11 +64,7 @@ public class ShowNewsPageAction extends DispatchAction {
             news = service.getNewsById(id);
         } catch (ServiceException e) {
             LOGGER.error("Cannot get news by id", e);
-            try {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            } catch (IOException e1) {
-                throw new ActionException("Cannot send error", e1);
-            }
+            throw new ActionException("Cannot get news", e);
         }
 
         NewsForm newsForm = form;
