@@ -1,24 +1,26 @@
 package com.epam.ilya.dao;
 
 import com.epam.ilya.model.Comment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Class encapsulates all methods of manipulation with {@link Comment} in database
  *
  * @author Ilya_Bondarenko
  */
+public class CommentDao extends AbstractDao implements Dao<Comment> {
 
-public class CommentDao extends DaoEntity implements Dao<Comment> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(NewsDao.class);
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Comment findById(int id) throws DaoException {
         rebootManager();
         return entityManager.find(Comment.class, id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Comment update(Comment comment) throws DaoException {
         rebootManager();
@@ -28,6 +30,9 @@ public class CommentDao extends DaoEntity implements Dao<Comment> {
         return newComment;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(int id) throws DaoException {
         rebootManager();

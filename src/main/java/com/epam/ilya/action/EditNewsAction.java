@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Ilya_Bondarenko
  */
-
 public class EditNewsAction extends MappingDispatchAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(EditNewsAction.class);
     private static final String ID = "id";
@@ -34,7 +33,6 @@ public class EditNewsAction extends MappingDispatchAction {
      * @param response going on view
      * @return ActionForward object that contain mapping on forward page
      */
-
     public ActionForward update(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         LOGGER.debug("Update or create news");
         NewsForm newsForm = (NewsForm) form;
@@ -61,7 +59,6 @@ public class EditNewsAction extends MappingDispatchAction {
      * @param response going on view
      * @return ActionForward object that contain mapping on forward page
      */
-
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         NewsService service = new NewsService();
         String id = request.getParameter(ID);

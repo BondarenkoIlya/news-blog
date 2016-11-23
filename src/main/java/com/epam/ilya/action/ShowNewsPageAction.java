@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Ilya_Bondarenko
  */
-
 public class ShowNewsPageAction extends DispatchAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(ShowNewsPageAction.class);
     private static final String ID = "id";
@@ -34,7 +33,6 @@ public class ShowNewsPageAction extends DispatchAction {
      * @param response going on view
      * @return ActionForward object that contain mapping on forward page
      */
-
     public ActionForward view(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         takeNews((NewsForm) form, request, response);
         request.setAttribute("commentForm", new CommentForm());
@@ -50,7 +48,6 @@ public class ShowNewsPageAction extends DispatchAction {
      * @param response going on view
      * @return ActionForward object that contain mapping on forward page
      */
-
     public ActionForward edition(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         takeNews((NewsForm) form, request, response);
         return mapping.findForward("edition");

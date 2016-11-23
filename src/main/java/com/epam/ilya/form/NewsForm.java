@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author Ilya_Bondarenko
  */
-
 public class NewsForm extends ValidatorForm {
     private News news = new News();
     private String editDate;
@@ -37,6 +36,9 @@ public class NewsForm extends ValidatorForm {
         this.editDate = editDate;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = super.validate(mapping, request);

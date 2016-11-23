@@ -37,8 +37,6 @@
             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
     </div>
-    <%--<html:textarea property="editDate" name="newsForm"/><br/>
-    <bean:message key="news.edit.date.format"/><br/>--%>
     <bean:message key="news.brief"/><br/>
     <html:textarea property="news.brief" name="newsForm" value="${newsForm.news.brief}"/><br>
     <bean:message key="news.content"/><br/>

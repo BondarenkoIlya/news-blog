@@ -5,7 +5,6 @@ package com.epam.ilya.dao;
  *
  * @author Ilya_Bondarenko
  */
-
 public class DaoException extends Exception {
 
     /**
@@ -14,8 +13,16 @@ public class DaoException extends Exception {
      * @param message including information about exception
      * @param e       caught exception
      */
-
     public DaoException(String message, Exception e) {
         super(message, e);
+    }
+
+    /**
+     * Constructor call super class's constructor with the same parameters for throwing up
+     *
+     * @param message including information about exception
+     */
+    public DaoException(String message) {
+        super(message);
     }
 }

@@ -7,8 +7,9 @@ import java.util.Properties;
  * Class that manage properties
  *
  * @author Ilya_Bondarenko
+ * @deprecated no usages
  */
-
+@Deprecated
 public class PropertyManager {
 
     /**

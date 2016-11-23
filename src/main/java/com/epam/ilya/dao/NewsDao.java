@@ -1,8 +1,6 @@
 package com.epam.ilya.dao;
 
 import com.epam.ilya.model.News;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -12,22 +10,24 @@ import java.util.List;
  *
  * @author Ilya_Bondarenko
  */
+public class NewsDao extends AbstractDao implements Dao<News> {
 
-public class NewsDao extends DaoEntity implements Dao<News> {
-    private static final Logger LOG = LoggerFactory.getLogger(NewsDao.class);
-
-
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public News findById(int id) throws DaoException {
         rebootManager();
         News news = entityManager.find(News.class, id);
-        if (news==null){
-            throw new DaoException("Do not find any news",new Exception());
+        if (news == null) {
+            throw new DaoException("Do not find any news");
         }
         return news;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public News update(News news) throws DaoException {
         rebootManager();
@@ -37,6 +37,9 @@ public class NewsDao extends DaoEntity implements Dao<News> {
         return newNews;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(int id) throws DaoException {
         rebootManager();
@@ -46,9 +49,16 @@ public class NewsDao extends DaoEntity implements Dao<News> {
         entityManager.getTransaction().commit();
     }
 
+    /**
+     * Method takes all news records from database
+     *
+     * @return List of news
+     * @throws DaoException if arise any problem with database
+     */
     public List<News> findAll() throws DaoException {
         rebootManager();
         Query query = entityManager.createQuery("FROM News", News.class);
         return query.getResultList();
     }
+
 }
