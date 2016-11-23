@@ -18,7 +18,6 @@ import java.util.List;
  *
  * @author Ilya_Bondarenko
  */
-
 public class ShowNewsListPageAction extends Action {
     private static final String SUCCESS = "success";
 
@@ -31,7 +30,6 @@ public class ShowNewsListPageAction extends Action {
      * @param response going on view
      * @return ActionForward object that contain mapping on forward page
      */
-
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         NewsListForm newsListForm = (NewsListForm) form;

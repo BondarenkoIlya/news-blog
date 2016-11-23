@@ -9,7 +9,16 @@
                    type="com.epam.ilya.form.NewsListForm"/>
         <form-bean name="newsForm"
                    type="com.epam.ilya.form.NewsForm"/>
+        <form-bean name="commentForm"
+                   type="com.epam.ilya.form.CommentForm"/>
     </form-beans>
+
+    <global-exceptions>
+        <exception
+                key="error.global.server"
+                type="com.epam.ilya.action.ActionException"
+                path="/WEB-INF/jsp/error-template.jsp"/>
+    </global-exceptions>
 
     <action-mappings>
         <action path="/newsList"
@@ -22,7 +31,8 @@
                 type="com.epam.ilya.action.ShowNewsPageAction"
                 name="newsForm"
                 parameter="method"
-                scope="request">
+                validate="false"
+                scope="session">
             <forward name="view" path="news-view"/>
             <forward name="edition" path="news-edit"/>
         </action>
@@ -33,21 +43,39 @@
                 parameter="news-edit"
                 validate="false">
         </action>
-        <action path="/newsEdit"
+
+        <action path="/newsUpdate"
                 type="com.epam.ilya.action.EditNewsAction"
                 name="newsForm"
-                parameter="method"
-                scope="request">
-            <forward name="showNewsList" path="/newsList.do" redirect="true"/>
+                parameter="update"
+                validate="true"
+                input="news-edit"
+                scope="session">
             <forward name="showNews" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
-        <action path="/commentEdit"
+
+        <action path="/newsDelete"
+                type="com.epam.ilya.action.EditNewsAction"
+                parameter="delete">
+            <forward name="showNewsList" path="/newsList.do" redirect="true"/>
+        </action>
+
+        <action path="/commentCreate"
                 type="com.epam.ilya.action.EditCommentAction"
-                name="newsForm"
-                parameter="method"
-                scope="request">
+                name="commentForm"
+                parameter="create"
+                input="news-view"
+                validate="true"
+                scope="session">
             <forward name="success" path="/newsEdition.do?method=view" redirect="true"/>
         </action>
+
+        <action path="/commentDelete"
+                type="com.epam.ilya.action.EditCommentAction"
+                parameter="delete">
+            <forward name="success" path="/newsEdition.do?method=view" redirect="true"/>
+        </action>
+
         <action path="/changeLocale"
                 type="com.epam.ilya.action.ChangeLocaleAction"
                 parameter="method"
@@ -55,7 +83,8 @@
         </action>
     </action-mappings>
 
-    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" nocache="true"/>
+
 
     <message-resources parameter="i18n"/>
 
@@ -63,6 +92,11 @@
         <set-property property="definitions-config"
                       value="/WEB-INF/tiles/tiles-defs.xml"/>
         <set-property property="moduleAware" value="true"/>
+    </plug-in>
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames"
+                      value="/WEB-INF/validation/validator-rules.xml, /WEB-INF/validation/validator-news.xml"/>
+
     </plug-in>
 
 </struts-config>

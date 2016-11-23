@@ -8,7 +8,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.actions.DispatchAction;
+import org.apache.struts.actions.MappingDispatchAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,8 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Ilya_Bondarenko
  */
-
-public class EditNewsAction extends DispatchAction {
+public class EditNewsAction extends MappingDispatchAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(EditNewsAction.class);
     private static final String ID = "id";
 
@@ -34,21 +33,20 @@ public class EditNewsAction extends DispatchAction {
      * @param response going on view
      * @return ActionForward object that contain mapping on forward page
      */
-
     public ActionForward update(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         LOGGER.debug("Update or create news");
         NewsForm newsForm = (NewsForm) form;
         String id = request.getParameter(ID);
         NewsService service = new NewsService();
         News news = newsForm.getNews();
-        String date = newsForm.getEditDate();
+        News newNews;
         try {
-            news = service.updateOrCreateNewsById(news, id, date);
+            newNews = service.updateOrCreateNewsById(news, id);
         } catch (ServiceException e) {
             throw new ActionException("Cannot update news", e);
         }
         ActionRedirect actionRedirect = new ActionRedirect(mapping.findForward("showNews"));
-        actionRedirect.addParameter(ID, news.getId());
+        actionRedirect.addParameter(ID, newNews.getId());
         return actionRedirect;
     }
 
@@ -61,7 +59,6 @@ public class EditNewsAction extends DispatchAction {
      * @param response going on view
      * @return ActionForward object that contain mapping on forward page
      */
-
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ActionException {
         NewsService service = new NewsService();
         String id = request.getParameter(ID);

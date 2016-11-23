@@ -3,47 +3,33 @@ package com.epam.ilya.dao;
 /**
  * Class describes all working with database entities behaviour
  *
- * @param <T>
+ * @param <T> type of managed entity
  */
-
 public interface Dao<T> {
-
-    /**
-     * Method creates record in database by <T> object
-     *
-     * @param t with out id
-     * @return created <T> object with id
-     * @throws DaoException
-     */
-
-    T create(T t) throws DaoException;
 
     /**
      * Method finds record by id and picks <T> entity
      *
      * @param id for finding <T> object in database
      * @return picked entity
-     * @throws DaoException
+     * @throws DaoException if arise any problem with database
      */
-
     T findById(int id) throws DaoException;
 
     /**
-     * Method updates object's record in database
+     * Method updates object's record in database or creates new record in case of doesn't find record with same id
      *
-     * @param t object needs to be update
-     * @throws DaoException
+     * @param entity object needs to be update
+     * @throws DaoException if arise any problem with database
      */
-
-    void update(T t) throws DaoException;
+    T update(T entity) throws DaoException;
 
     /**
      * Method deletes correspondent record from base
      *
      * @param id of deleting entity
-     * @throws DaoException
+     * @throws DaoException if arise any problem with database
      */
-
     void delete(int id) throws DaoException;
 
 }

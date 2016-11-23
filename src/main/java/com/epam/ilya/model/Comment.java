@@ -2,17 +2,32 @@ package com.epam.ilya.model;
 
 import org.joda.time.DateTime;
 
+import javax.persistence.*;
+
 /**
  * Class describes explanation or guest's thoughts about {@link News}
  *
  * @author Ilya_Bondarenko
  */
-
+@Entity
+@Table(name = "\"COMMENT\"")
 public class Comment extends BaseEntity {
+    @Column(name = "AUTHOR")
     private String author;
+
+    @Column(name = "\"date\"")
+    @Convert(converter = DateTimeConverter.class)
     private DateTime date;
+
+    @Column(name = "CONTENT")
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "NEWS_ID", insertable = false, updatable = false, nullable = false)
     private News news;
+
+    @Column(name = "NEWS_ID")
+    private int newsId;
 
     public Comment() {
         this.date = DateTime.now();
@@ -48,6 +63,14 @@ public class Comment extends BaseEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getNewsId() {
+        return newsId;
+    }
+
+    public void setNewsId(int newsId) {
+        this.newsId = newsId;
     }
 
     @Override

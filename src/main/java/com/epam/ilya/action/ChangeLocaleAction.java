@@ -17,7 +17,6 @@ import java.util.Locale;
  *
  * @author Ilya_Bondarenko
  */
-
 public class ChangeLocaleAction extends DispatchAction {
 
     /**
@@ -29,7 +28,6 @@ public class ChangeLocaleAction extends DispatchAction {
      * @param response going on view
      * @return ActionForward object that contain mapping on forward page
      */
-
     public ActionForward english(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
         request.getSession().setAttribute(
                 Globals.LOCALE_KEY, Locale.ENGLISH);
@@ -46,7 +44,6 @@ public class ChangeLocaleAction extends DispatchAction {
      * @param response going on view
      * @return ActionForward object that contain mapping on forward page
      */
-
     public ActionForward russian(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
         request.getSession().setAttribute(
                 Globals.LOCALE_KEY, Locale.forLanguageTag("ru"));
@@ -57,16 +54,16 @@ public class ChangeLocaleAction extends DispatchAction {
     /**
      * Method changes on france locale
      *
-     * @param mapping  of struts
-     * @param form     came from view
-     * @param request  going on view
-     * @param response going on view
+     * @param mapping         of struts
+     * @param ignoredForm     came from view
+     * @param request         going on view
+     * @param ignoredResponse going on view
      * @return ActionForward object that contain mapping on forward page
      */
-
-    public ActionForward france(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
+    public ActionForward france(ActionMapping mapping, ActionForm ignoredForm, HttpServletRequest request, HttpServletResponse ignoredResponse) {
         request.getSession().setAttribute(
-                Globals.LOCALE_KEY, Locale.FRANCE);
+                Globals.LOCALE_KEY, Locale.FRANCE
+        );
         Config.set(request.getSession(), Config.FMT_LOCALE, Locale.FRANCE);
 
         return refererPage(request);

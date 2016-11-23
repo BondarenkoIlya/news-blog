@@ -36,6 +36,19 @@
 
 
     <dependencies>
+        <!--UI-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-datepicker</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
         <!--Pool-->
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -51,6 +64,12 @@
         </dependency>
 
         <!--DB-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.4.Final</version>
+        </dependency>
+
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
@@ -121,6 +140,7 @@
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
         </dependency>
+
     </dependencies>
 
     <repositories>
