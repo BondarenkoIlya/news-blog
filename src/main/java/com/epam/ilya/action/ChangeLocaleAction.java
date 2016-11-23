@@ -4,6 +4,7 @@ import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.actions.DispatchAction;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +20,6 @@ import java.util.Locale;
 
 public class ChangeLocaleAction extends DispatchAction {
 
-    private static final String SUCCESS = "success";
-
     /**
      * Method changes on english locale
      *
@@ -35,7 +34,7 @@ public class ChangeLocaleAction extends DispatchAction {
         request.getSession().setAttribute(
                 Globals.LOCALE_KEY, Locale.ENGLISH);
         Config.set(request.getSession(), Config.FMT_LOCALE, Locale.ENGLISH);
-        return mapping.findForward(SUCCESS);
+        return refererPage(request);
     }
 
     /**
@@ -52,7 +51,7 @@ public class ChangeLocaleAction extends DispatchAction {
         request.getSession().setAttribute(
                 Globals.LOCALE_KEY, Locale.forLanguageTag("ru"));
         Config.set(request.getSession(), Config.FMT_LOCALE, Locale.forLanguageTag("ru"));
-        return mapping.findForward(SUCCESS);
+        return refererPage(request);
     }
 
     /**
@@ -69,6 +68,12 @@ public class ChangeLocaleAction extends DispatchAction {
         request.getSession().setAttribute(
                 Globals.LOCALE_KEY, Locale.FRANCE);
         Config.set(request.getSession(), Config.FMT_LOCALE, Locale.FRANCE);
-        return mapping.findForward(SUCCESS);
+
+        return refererPage(request);
+    }
+
+    private ActionRedirect refererPage(HttpServletRequest request) {
+        String referer = request.getHeader("referer");
+        return new ActionRedirect(referer);
     }
 }

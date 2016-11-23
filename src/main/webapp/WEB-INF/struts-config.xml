@@ -50,10 +50,8 @@
         </action>
         <action path="/changeLocale"
                 type="com.epam.ilya.action.ChangeLocaleAction"
-                name="newsForm"
                 parameter="method"
-                scope="request">
-            <forward name="success" path="/newsList.do" redirect="true"/>
+        >
         </action>
     </action-mappings>
 
