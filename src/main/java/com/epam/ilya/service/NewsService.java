@@ -8,6 +8,7 @@ import com.epam.ilya.model.News;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -88,6 +89,7 @@ public class NewsService {
         if (id.matches(ID_REGEX)) {
             news.setId(Integer.parseInt(id));
         }
+        news.setComments(new ArrayList<>());
         News newNews;
         try {
             NewsDao newsDao = new NewsDao();
